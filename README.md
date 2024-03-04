@@ -17,7 +17,9 @@
 ![img.png](step-1-review1.png)
 
 ### ❗ 문제점
-- ```Gradle Build```에 사용되는 방법은 ```Gradle Wrapper```을 사용하는 것인데, ```.gitignore```에서 ```gradlew.bat```, ```gradlew```. ```gradle```을 ignore을 하여 gradle 버전 관리가 정상적으로 되지 않는 문제 발생
+
+- ```Gradle Build```에 사용되는 방법은 ```Gradle Wrapper```을 사용하는 것인데, ```.gitignore```
+  에서 ```gradlew.bat```, ```gradlew```. ```gradle```을 ignore을 하여 gradle 버전 관리가 정상적으로 되지 않는 문제 발생
 
 ### ⭕️ 해결
 
@@ -37,6 +39,7 @@
 > 따라서, gradle-wrapper를 통해 버전 관리가 이루어져야 한다.
 
 - ```.gitignore```파일을 수정하여 해결
+
 ```angular2html
 # Gradle
 .gradle
@@ -53,6 +56,62 @@
 # Avoid ignore Gradle wrappper properties
 !gradle-wrapper.properties
 ```
+
+## 2) Pawn Test 클래스에서의 상수 선언
+
+![step-1-review3.PNG](step-1-review3.PNG)
+
+### ❗ 문제점
+
+- 상수 ```white```, ```black```이 단순히 테스트만을 위한 코드가 되어버리는 문제.
+
+### ⭕️ 해결
+
+- 폰의 색은 ```white``` 혹은 ```black```만 되는 것을 가정하자!
+- ```white```, ```black```값을 ```Pawn 클래스```에서 상수 처리
+
+```angular2html
+public class Pawn {
+
+private final static String WHITE_COLOR = "white";
+private final static String BLACK_COLOR = "black";
+
+...
+}
+```
+
+- white나 black 값이 아니라면 예외 처리를 하도록 구현 [아래에 계속]
+
+## 3) Pawn 객체 생성 예외 처리
+
+![step-1-review2.png](step-1-review2.png)
+
+### ❗ 문제점
+
+- Pawn 객체가 생성될 때, 단순히 ```pawnColor```에 색상값만 주입해주기 때문에 ```Pawn 객체```의 생성을 보장할 수 없는 문제 발생
+
+### ⭕️ 해결
+
+- ```setPawnColor```메소드를 통해 클래스를 생성 및 예외 처리
+- 생성 시에 예외를 던지도록 구현하여, 객체 폰의 생성을 보장해줄 수 있게 해결하였다.
+
+```angular2html
+Pawn(String pawnColor) {
+setPawnColor(pawnColor);
+}
+```
+
+```
+private void setPawnColor(String pawnColor) {
+        String inputPawnColor = pawnColor.toLowerCase().replace(" ", "");
+
+        if (!inputPawnColor.equals(WHITE_COLOR) && !inputPawnColor.equals(BLACK_COLOR)) {
+            throw new IllegalArgumentException("[ERROR] 폰의 색은 white, black 색상만 가능합니다");
+        }
+        this.pawnColor = inputPawnColor;
+    }
+```
+
 
 
 
