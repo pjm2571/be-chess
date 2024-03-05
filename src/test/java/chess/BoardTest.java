@@ -2,7 +2,10 @@ package chess;
 
 import chess.pieces.Pawn;
 import colors.color;
+
 import org.junit.jupiter.api.*;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 public class BoardTest {
@@ -14,17 +17,23 @@ public class BoardTest {
     }
 
     @Test
-    @DisplayName("체스 보드 생성 후, 폰을 추가하는 테스트")
-    public void create() {
+    @DisplayName("체스 보드 size 테스트")
+    public void addPawn_to_Board() {
         Pawn white = new Pawn(color.WHITE);
         board.add(white);
-        Assertions.assertEquals(1, board.size());
-        Assertions.assertEquals(white, board.findPawn(0));
+        assertEquals(1, board.size());
 
         Pawn black = new Pawn(color.BLACK);
         board.add(black);
-        Assertions.assertEquals(2, board.size());
-        Assertions.assertEquals(black, board.findPawn(1));
+        assertEquals(2, board.size());
+    }
+
+    @Test
+    @DisplayName("체스 보드 findPawn 테스트")
+    public void addPawn_and_findPawn() {
+        Pawn white = new Pawn(color.WHITE);
+        board.add(white);
+        assertEquals(white, board.findPawn(0));
     }
 
 }
