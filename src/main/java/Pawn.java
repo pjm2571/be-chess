@@ -3,9 +3,13 @@ public class Pawn {
     private final static String BLACK_COLOR = "black";
     private String pawnColor;
 
+    Pawn() {
+        this.pawnColor = WHITE_COLOR;
+    }
     Pawn(String pawnColor) {
         setPawnColor(pawnColor);
     }
+
 
     private void setPawnColor(String pawnColor) {
         String inputPawnColor = pawnColor.toLowerCase().replace(" ", "");
