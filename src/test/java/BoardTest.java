@@ -11,13 +11,13 @@ public class BoardTest {
 
         Pawn white = new Pawn(Pawn.WHITE_COLOR);
         board.add(white);
-        assertEquals(1, board.size());
+        assertEquals(1, board.getSize());
         assertEquals(white, board.findPawn(0));
 
         Pawn black = new Pawn(Pawn.BLACK_COLOR);
         board.add(black);
-        assertEquals(2, board.size());
+        assertEquals(2, board.getSize());
 
-        assertEquals(black, borad.findPawn(1));
+        assertEquals(black, board.findPawn(1));
     }
 }
