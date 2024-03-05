@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.*;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PawnTest {
     private final static String ERROR = "[ERROR]";
@@ -57,6 +58,13 @@ public class PawnTest {
 
         Pawn pawn = new Pawn(pawnColor);
         assertThat(pawn.getColor()).isEqualTo(expectedColor);
+    }
+
+    @Test
+    @DisplayName("매개변수 없는 폰의 생성 테스트")
+    public void create_with_non_color() {
+        Pawn pawn = new Pawn();
+        assertEquals("white", pawn.getColor());
     }
 
 }
