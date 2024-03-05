@@ -1,6 +1,6 @@
 public class Pawn {
-    private final static String WHITE_COLOR = "white";
-    private final static String BLACK_COLOR = "black";
+    public final static String WHITE_COLOR = "white";
+    public final static String BLACK_COLOR = "black";
     private String pawnColor;
 
     Pawn() {
