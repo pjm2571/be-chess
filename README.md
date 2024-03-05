@@ -171,7 +171,29 @@ public class Pawn {
   - 예외 처리를 해주지 않아도 안전하게 오류 확인 가능!
 ![img.png](step-2-review1.png)
 
+    
+### 2) Test Code는 하나의 동작만 하도록!
+
+![img.png](step-2-review3.png)
+
+### ❗ 문제점
+- 테스트 코드의 Display Name 자체가 중복적인 워딩을 계속 출력하고 있음
+  - 테스트 코드의 이름 또한 프로그래밍의 일종 테스트코드만 보고 테스트의 의도를 파악할 수 있어야 함!
+- create() 테스트는 ```findPawn``` 메소드와 ```board.size```메소드를 동시에 판별
+  - 테스트 코드는 하나의 코드가 하나의 동작을 테스트하도록 구현해야한다!
 
 
+### ⭕️ 해결
+- create() 테스트 코드를 2개의 테스트 코드로 분리
+- 테스트 코드 이름에 어떤 기능을 테스트 하는 지 작성
+```
+@DisplayName("체스 보드 size 테스트")
+    public void addPawn_to_Board() {
+    ... }
+```
 
-
+```
+@DisplayName("체스 보드 findPawn 테스트")
+    public void addPawn_and_findPawn() {
+    ... }
+```
