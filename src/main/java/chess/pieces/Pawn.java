@@ -1,29 +1,19 @@
 package chess.pieces;
 
+import colors.color;
+
 public class Pawn {
-    public final static String WHITE_COLOR = "white";
-    public final static String BLACK_COLOR = "black";
-    private String pawnColor;
+    private final color pawnColor;
 
     public Pawn() {
-        this.pawnColor = WHITE_COLOR;
+        this.pawnColor = color.WHITE;
     }
 
-    public Pawn(String pawnColor) {
-        setPawnColor(pawnColor);
+    public Pawn(color pawnColor) {
+        this.pawnColor = pawnColor;
     }
 
-
-    private void setPawnColor(String pawnColor) {
-        String inputPawnColor = pawnColor.toLowerCase().replace(" ", "");
-
-        if (!inputPawnColor.equals(WHITE_COLOR) && !inputPawnColor.equals(BLACK_COLOR)) {
-            throw new IllegalArgumentException("[ERROR] 폰의 색은 white, black 색상만 가능합니다");
-        }
-        this.pawnColor = inputPawnColor;
-    }
-
-    public String getColor() {
+    public color getColor() {
         return pawnColor;
     }
 }
