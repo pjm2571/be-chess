@@ -112,6 +112,65 @@ private void setPawnColor(String pawnColor) {
     }
 ```
 
+---
+
+## Step - 2 코드 리뷰 리팩토링
+
+### 1) Pawn Color 값의 String Type 안정성
+
+![img.png](step-2-review2.png)
+
+### ❗ 문제점
+
+```
+public final static String WHITE_COLOR = "white";
+public final static String BLACK_COLOR = "black";
+
+private String pawnColor;
+```
+- ```color```값을 String으로 선언해주어 생성자로 넘길 때 100% 안전성을 보장할 수 없다는 문제점 발생
+
+```
+* enum으로 선언
+compile 단계에서 그냥 Pawn(RAINBOW) 해버리면 아예 컴파일 에러!
+
+* String으로 선언
+Pawn("RAINBOW")가 들어감
+Pawn 객체 내부에서 예외 처리 판단
+예외를 던지고, caller에서 예외 처리
+```
+- enum [compile단에서 확인 가능] ✅
+- String [pawn 객체에서 throw -> caller에서 예외 처리] ❌
+  - 안정성을 100% 보장할 수 없음!
+
+### ⭕️ 해결
+
+- color 값을 String 값으로 넘겨주기 보다는, enum 타입을 사용하여 불변값으로 넘겨주자
+```
+public enum color {
+    WHITE("white"),
+    BLACK("black");
+    ...
+}
+```
+
+- enum 타입 ```color```로 선언해주어, 컴파일 단에서 에러를 확인 가능하게 해결!
+```
+public class Pawn {
+    private final color pawnColor;
+
+    public Pawn() {
+        this.pawnColor = color.WHITE;
+    }
+    
+    ...
+}
+```
+
+- 생성자로 String 값을 넘겨주게 되면 ```Compile Error``` 발생!
+  - 예외 처리를 해주지 않아도 안전하게 오류 확인 가능!
+![img.png](step-2-review1.png)
+
 
 
 
