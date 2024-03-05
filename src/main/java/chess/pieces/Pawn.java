@@ -1,12 +1,15 @@
+package chess.pieces;
+
 public class Pawn {
     public final static String WHITE_COLOR = "white";
     public final static String BLACK_COLOR = "black";
     private String pawnColor;
 
-    Pawn() {
+    public Pawn() {
         this.pawnColor = WHITE_COLOR;
     }
-    Pawn(String pawnColor) {
+
+    public Pawn(String pawnColor) {
         setPawnColor(pawnColor);
     }
 
