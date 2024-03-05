@@ -128,6 +128,7 @@ public final static String BLACK_COLOR = "black";
 
 private String pawnColor;
 ```
+
 - ```color```값을 String으로 선언해주어 생성자로 넘길 때 100% 안전성을 보장할 수 없다는 문제점 발생
 
 ```
@@ -139,13 +140,15 @@ Pawn("RAINBOW")가 들어감
 Pawn 객체 내부에서 예외 처리 판단
 예외를 던지고, caller에서 예외 처리
 ```
+
 - enum [compile단에서 확인 가능] ✅
 - String [pawn 객체에서 throw -> caller에서 예외 처리] ❌
-  - 안정성을 100% 보장할 수 없음!
+    - 안정성을 100% 보장할 수 없음!
 
 ### ⭕️ 해결
 
 - color 값을 String 값으로 넘겨주기 보다는, enum 타입을 사용하여 불변값으로 넘겨주자
+
 ```
 public enum color {
     WHITE("white"),
@@ -155,6 +158,7 @@ public enum color {
 ```
 
 - enum 타입 ```color```로 선언해주어, 컴파일 단에서 에러를 확인 가능하게 해결!
+
 ```
 public class Pawn {
     private final color pawnColor;
@@ -168,24 +172,25 @@ public class Pawn {
 ```
 
 - 생성자로 String 값을 넘겨주게 되면 ```Compile Error``` 발생!
-  - 예외 처리를 해주지 않아도 안전하게 오류 확인 가능!
-![img.png](step-2-review1.png)
+    - 예외 처리를 해주지 않아도 안전하게 오류 확인 가능!
+      ![img.png](step-2-review1.png)
 
-    
 ### 2) Test Code는 하나의 동작만 하도록!
 
 ![img.png](step-2-review3.png)
 
 ### ❗ 문제점
-- 테스트 코드의 Display Name 자체가 중복적인 워딩을 계속 출력하고 있음
-  - 테스트 코드의 이름 또한 프로그래밍의 일종 테스트코드만 보고 테스트의 의도를 파악할 수 있어야 함!
-- create() 테스트는 ```findPawn``` 메소드와 ```board.size```메소드를 동시에 판별
-  - 테스트 코드는 하나의 코드가 하나의 동작을 테스트하도록 구현해야한다!
 
+- 테스트 코드의 Display Name 자체가 중복적인 워딩을 계속 출력하고 있음
+    - 테스트 코드의 이름 또한 프로그래밍의 일종 테스트코드만 보고 테스트의 의도를 파악할 수 있어야 함!
+- create() 테스트는 ```findPawn``` 메소드와 ```board.size```메소드를 동시에 판별
+    - 테스트 코드는 하나의 코드가 하나의 동작을 테스트하도록 구현해야한다!
 
 ### ⭕️ 해결
+
 - create() 테스트 코드를 2개의 테스트 코드로 분리
 - 테스트 코드 이름에 어떤 기능을 테스트 하는 지 작성
+
 ```
 @DisplayName("체스 보드 size 테스트")
     public void addPawn_to_Board() {
@@ -196,4 +201,60 @@ public class Pawn {
 @DisplayName("체스 보드 findPawn 테스트")
     public void addPawn_and_findPawn() {
     ... }
+```
+
+### 3) ```getter```가 없다면....????
+
+![img.png](step-2-review4.png)
+> JK의 질문들 중, 가장 많은 생각을 하게 됐던 질문이었다.
+
+> 테스트 코드를 위해 <br>
+> 게터로부터 값을 가져와서 <br>
+> 테스트 코드를 구현하는 것이 맞는 것일까?
+
+### ❗ 문제점
+
+- ```getColor()```는 단순히 ```PawnTest```에서만 사용되는 ```getter```이다.
+    - 즉, 단순히 테스트만 하기 위한 getter로서 ```getColor()```가 사용된다는 뜻이다.
+
+### ⭕️ 해결
+
+- ```reflection```을 통해 테스트를 구현해본다.
+
+1) 값을 가져올 ```Pawn 클래스```를 찾는다.
+
+```
+Class<?> pawnClass = Class.forName("chess.pieces.Pawn");
+```
+
+2) 클래스의 ```color 필드```를 가져온다.
+
+```
+Field field = pawnClass.getDeclaredField("pawnColor");
+```
+
+3) ```color 필드```는 ```private```이므로 접근을 가능하게 해준다.
+
+```
+field.setAccessible(true);
+```
+
+4) ```생성한 Pawn 객체```의 field 값을 가져온다.
+
+```
+field.get(pawn);
+```
+
+- getter 없이 구현한 테스트 코드
+
+```
+@Test
+@DisplayName("매개변수 없는 폰의 생성 테스트")
+public void create_with_non_color() throws Exception {
+    Pawn pawn = new Pawn();
+
+    Object pawnColor = getPawnColor(pawn);
+
+    assertEquals(color.WHITE, pawnColor);
+}
 ```
