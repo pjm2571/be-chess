@@ -12,8 +12,4 @@ public class Pawn {
     public Pawn(color pawnColor) {
         this.pawnColor = pawnColor;
     }
-
-    public color getColor() {
-        return pawnColor;
-    }
 }
