@@ -47,5 +47,15 @@ public class PawnTest {
         assertEquals(Colors.WHITE, pawnColor);
     }
 
+    @Test
+    @DisplayName("흰색 폰의 Shape 테스트")
+    public void create_pawn_check_shape() {
+        Pawn pawn = new Pawn();
+
+        String expectedShape = Symbols.WHITE_PAWN.getSymbolShape();
+        
+        assertEquals(expectedShape, pawn.getPawnSymbol());
+    }
+
 
 }
