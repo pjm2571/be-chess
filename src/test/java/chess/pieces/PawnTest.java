@@ -1,6 +1,6 @@
 package chess.pieces;
 
-import colors.color;
+import colors.Colors;
 import org.junit.jupiter.api.*;
 
 import java.lang.reflect.Field;
@@ -11,16 +11,16 @@ public class PawnTest {
     @Test
     @DisplayName("흰색 폰과 검정색 폰의 생성 테스트")
     public void create() throws Exception {
-        verifyPawn(color.WHITE);
-        verifyPawn(color.BLACK);
+        verifyPawn(Colors.WHITE);
+        verifyPawn(Colors.BLACK);
     }
 
-    private void verifyPawn(color color) throws Exception {
-        Pawn pawn = new Pawn(color);
+    private void verifyPawn(Colors Colors) throws Exception {
+        Pawn pawn = new Pawn(Colors);
 
         Object pawnColor = getPawnColor(pawn);
 
-        assertEquals(color, pawnColor);
+        assertEquals(Colors, pawnColor);
     }
 
     private Object getPawnColor(Pawn pawn) throws Exception {
@@ -44,7 +44,7 @@ public class PawnTest {
 
         Object pawnColor = getPawnColor(pawn);
 
-        assertEquals(color.WHITE, pawnColor);
+        assertEquals(Colors.WHITE, pawnColor);
     }
 
 

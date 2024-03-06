@@ -1,15 +1,15 @@
 package chess.pieces;
 
-import colors.color;
+import colors.Colors;
 
 public class Pawn {
-    private final color pawnColor;
+    private final Colors pawnColors;
 
     public Pawn() {
-        this.pawnColor = color.WHITE;
+        this.pawnColors = Colors.WHITE;
     }
 
-    public Pawn(color pawnColor) {
-        this.pawnColor = pawnColor;
+    public Pawn(Colors pawnColors) {
+        this.pawnColors = pawnColors;
     }
 }

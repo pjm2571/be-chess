@@ -1,12 +1,12 @@
 package colors;
 
-public enum color {
+public enum Colors {
     WHITE("white"),
     BLACK("black");
 
     private String colorType;
 
-    color(String colorType) {
+    Colors(String colorType) {
         this.colorType = colorType;
     }
 
