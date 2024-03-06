@@ -16,7 +16,7 @@ public class ChessGame {
             inputCommand = new StringBuilder(sc.nextLine());
             if (inputCommand.toString().equals("start")) {
                 board.initialize();
-                System.out.println(board.print());
+                System.out.println(board.showBoard());
                 // 추가 구현
 
             } else if (inputCommand.toString().equals("end")) {
