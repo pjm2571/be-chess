@@ -1,7 +1,7 @@
 package chess;
 
 import chess.pieces.Pawn;
-import colors.color;
+import colors.Colors;
 
 import org.junit.jupiter.api.*;
 
@@ -19,11 +19,11 @@ public class BoardTest {
     @Test
     @DisplayName("체스 보드 size 테스트")
     public void addPawn_to_Board() {
-        Pawn white = new Pawn(color.WHITE);
+        Pawn white = new Pawn(Colors.WHITE);
         board.add(white);
         assertEquals(1, board.size());
 
-        Pawn black = new Pawn(color.BLACK);
+        Pawn black = new Pawn(Colors.BLACK);
         board.add(black);
         assertEquals(2, board.size());
     }
@@ -31,7 +31,7 @@ public class BoardTest {
     @Test
     @DisplayName("체스 보드 findPawn 테스트")
     public void addPawn_and_findPawn() {
-        Pawn white = new Pawn(color.WHITE);
+        Pawn white = new Pawn(Colors.WHITE);
         board.add(white);
         assertEquals(white, board.findPawn(0));
     }

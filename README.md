@@ -88,7 +88,7 @@ private final static String BLACK_COLOR = "black";
 
 ### ❗ 문제점
 
-- chess.pieces.Pawn 객체가 생성될 때, 단순히 ```pawnColor```에 색상값만 주입해주기 때문에 ```chess.pieces.Pawn 객체```의 생성을 보장할 수 없는 문제 발생
+- chess.pieces.Pawn 객체가 생성될 때, 단순히 ```pawnColors```에 색상값만 주입해주기 때문에 ```chess.pieces.Pawn 객체```의 생성을 보장할 수 없는 문제 발생
 
 ### ⭕️ 해결
 
@@ -96,19 +96,19 @@ private final static String BLACK_COLOR = "black";
 - 생성 시에 예외를 던지도록 구현하여, 객체 폰의 생성을 보장해줄 수 있게 해결하였다.
 
 ```
-chess.pieces.Pawn(String pawnColor) {
-setPawnColor(pawnColor);
+chess.pieces.Pawn(String pawnColors) {
+setPawnColor(pawnColors);
 }
 ```
 
 ```
-private void setPawnColor(String pawnColor) {
-        String inputPawnColor = pawnColor.toLowerCase().replace(" ", "");
+private void setPawnColor(String pawnColors) {
+        String inputPawnColor = pawnColors.toLowerCase().replace(" ", "");
 
         if (!inputPawnColor.equals(WHITE_COLOR) && !inputPawnColor.equals(BLACK_COLOR)) {
             throw new IllegalArgumentException("[ERROR] 폰의 색은 white, black 색상만 가능합니다");
         }
-        this.pawnColor = inputPawnColor;
+        this.pawnColors = inputPawnColor;
     }
 ```
 
@@ -126,10 +126,10 @@ private void setPawnColor(String pawnColor) {
 public final static String WHITE_COLOR = "white";
 public final static String BLACK_COLOR = "black";
 
-private String pawnColor;
+private String pawnColors;
 ```
 
-- ```color```값을 String으로 선언해주어 생성자로 넘길 때 100% 안전성을 보장할 수 없다는 문제점 발생
+- ```Colors```값을 String으로 선언해주어 생성자로 넘길 때 100% 안전성을 보장할 수 없다는 문제점 발생
 
 ```
 * enum으로 선언
@@ -147,24 +147,24 @@ Pawn 객체 내부에서 예외 처리 판단
 
 ### ⭕️ 해결
 
-- color 값을 String 값으로 넘겨주기 보다는, enum 타입을 사용하여 불변값으로 넘겨주자
+- Colors 값을 String 값으로 넘겨주기 보다는, enum 타입을 사용하여 불변값으로 넘겨주자
 
 ```
-public enum color {
+public enum Colors {
     WHITE("white"),
     BLACK("black");
     ...
 }
 ```
 
-- enum 타입 ```color```로 선언해주어, 컴파일 단에서 에러를 확인 가능하게 해결!
+- enum 타입 ```Colors```로 선언해주어, 컴파일 단에서 에러를 확인 가능하게 해결!
 
 ```
 public class Pawn {
-    private final color pawnColor;
+    private final Colors pawnColors;
 
     public Pawn() {
-        this.pawnColor = color.WHITE;
+        this.pawnColors = Colors.WHITE;
     }
     
     ...
@@ -227,13 +227,13 @@ public class Pawn {
 Class<?> pawnClass = Class.forName("chess.pieces.Pawn");
 ```
 
-2) 클래스의 ```color 필드```를 가져온다.
+2) 클래스의 ```Colors 필드```를 가져온다.
 
 ```
-Field field = pawnClass.getDeclaredField("pawnColor");
+Field field = pawnClass.getDeclaredField("pawnColors");
 ```
 
-3) ```color 필드```는 ```private```이므로 접근을 가능하게 해준다.
+3) ```Colors 필드```는 ```private```이므로 접근을 가능하게 해준다.
 
 ```
 field.setAccessible(true);
@@ -253,8 +253,8 @@ field.get(pawn);
 public void create_with_non_color() throws Exception {
     Pawn pawn = new Pawn();
 
-    Object pawnColor = getPawnColor(pawn);
+    Object pawnColors = getPawnColor(pawn);
 
-    assertEquals(color.WHITE, pawnColor);
+    assertEquals(Colors.WHITE, pawnColors);
 }
 ```
