@@ -258,3 +258,19 @@ public void create_with_non_color() throws Exception {
     assertEquals(Colors.WHITE, pawnColors);
 }
 ```
+
+---
+
+
+## Step - 3 코드 리뷰 리팩토링
+
+### 1) initialize 호출 부분
+![img_1.png](step-3-review1.png)
+### ❗ 문제점
+- 단순히 initialize()를 생성자에서 생성하기 때문에, Board 객체가 생성되면 initialize 수행되는 것
+- initialize()를 호출하는 메소드가 없기 때문에 기본 생성자와 다른 점이 없다.
+### ⭕️ 해결
+- initialize()를 생성자 부분에서 빼주고, 객체가 생성된 후, initialize()를 통해 생성되도록 변경
+
+
+
