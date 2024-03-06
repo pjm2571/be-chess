@@ -11,7 +11,8 @@ public class main {
         StringBuilder inputCommand;
 
         while (true) {
-            System.out.println("시작 : start / 종료 : end   입력 > ");
+            System.out.println("시작 : start / 종료 : end");
+            System.out.print("입력 > ");
             inputCommand = new StringBuilder(sc.nextLine());
             if (inputCommand.toString().equals("start")) {
                 System.out.println(board.print());
