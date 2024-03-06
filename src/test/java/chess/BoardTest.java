@@ -4,6 +4,7 @@ import chess.pieces.Pawn;
 import colors.Colors;
 
 import org.junit.jupiter.api.*;
+import utils.StringUtils;
 
 import java.util.Arrays;
 
@@ -43,14 +44,14 @@ public class BoardTest {
     @DisplayName("체스 보드 print() 테스트")
     public void board_print() {
         String expectedResult =
-                "........\n" +
-                        "♟♟♟♟♟♟♟♟\n" +
-                        "........\n" +
-                        "........\n" +
-                        "........\n" +
-                        "........\n" +
-                        "♙♙♙♙♙♙♙♙\n" +
-                        "........\n";
+                "........" + StringUtils.NEWLINE +
+                        "♟♟♟♟♟♟♟♟" + StringUtils.NEWLINE +
+                        "........" + StringUtils.NEWLINE +
+                        "........" + StringUtils.NEWLINE +
+                        "........" + StringUtils.NEWLINE +
+                        "........" + StringUtils.NEWLINE +
+                        "♙♙♙♙♙♙♙♙" + StringUtils.NEWLINE +
+                        "........" + StringUtils.NEWLINE;
 
         assertEquals(expectedResult, board.print());
     }
