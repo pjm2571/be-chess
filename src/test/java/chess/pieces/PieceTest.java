@@ -59,6 +59,17 @@ public class PieceTest {
         assertThat(piece.getPieceShape()).isEqualTo(symbol.getPieceShape());
     }
 
+    @Test
+    @DisplayName("흰색 piece에 대한 isWhite 메소드 테스트")
+    public void whitePiece_isWhite_test(){
+        Piece piece = Piece.createPiece(Symbols.WHITE_KNIGHT);
+        assertThat(piece.isWhite()).isEqualTo(true);
+    }
 
-
+    @Test
+    @DisplayName("검은색 piece에 대한 isWhite 메소드 테스트")
+    public void blackPiece_isWhite_test(){
+        Piece piece = Piece.createPiece(Symbols.BLACK_KNIGHT);
+        assertThat(piece.isWhite()).isEqualTo(false);
+    }
 }
