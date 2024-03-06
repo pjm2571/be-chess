@@ -3,13 +3,13 @@ package chess.pieces;
 import colors.Colors;
 
 public class Pawn {
-    private final Colors pawnColors;
+    private final Colors pawnColor;
 
     public Pawn() {
-        this.pawnColors = Colors.WHITE;
+        this.pawnColor = Colors.WHITE;
     }
 
     public Pawn(Colors pawnColors) {
-        this.pawnColors = pawnColors;
+        this.pawnColor = pawnColors;
     }
 }
