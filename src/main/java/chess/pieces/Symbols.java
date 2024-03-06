@@ -37,7 +37,7 @@ public enum Symbols {
         return symbolColor;
     }
 
-    public String getPieceSymbol() {
+    public String getPieceShape() {
         return symbolShape;
     }
 }
