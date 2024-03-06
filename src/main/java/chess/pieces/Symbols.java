@@ -23,6 +23,10 @@ public enum Symbols {
                 .orElse(null);
     }
 
+    public Colors getPawnColor() {
+        return symbolColor;
+    }
+
     public String getSymbolShape() {
         return symbolShape;
     }
