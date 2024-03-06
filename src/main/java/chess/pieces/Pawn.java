@@ -3,28 +3,21 @@ package chess.pieces;
 import colors.Colors;
 
 public class Pawn {
-    private final Colors pawnColor;
-    private Symbols pawnSymbol;
+    private final Symbols pawnSymbol;
 
     public Pawn() {
-        this.pawnColor = Colors.WHITE;
-        setPawnSymbol();
+        this.pawnSymbol = Symbols.WHITE_PAWN;
     }
 
     public Pawn(Colors pawnColors) {
-        this.pawnColor = pawnColors;
-        setPawnSymbol();
+        this.pawnSymbol = Symbols.getPawnSymbol(pawnColors);
     }
 
-    private void setPawnSymbol(){
-        this.pawnSymbol = Symbols.getPawnSymbol(pawnColor);
-    }
-
-    public String getPawnSymbol(){
+    public String getPawnSymbol() {
         return pawnSymbol.getSymbolShape();
     }
 
-    public Colors getPawnColor(){
-        return pawnColor;
+    public Colors getPawnColor() {
+        return pawnSymbol.getPawnColor();
     }
 }
