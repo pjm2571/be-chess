@@ -1,13 +1,13 @@
 package chess;
 
+import utils.StringUtils;
+
 import chess.pieces.Pawn;
 import chess.colors.Colors;
 
 import org.junit.jupiter.api.*;
-import utils.StringUtils;
 
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.*;
 
 
 public class BoardTest {
@@ -19,23 +19,19 @@ public class BoardTest {
     }
 
     @Test
-    @DisplayName("체스 보드 size 테스트")
-    public void addPawn_to_Board() {
-        Pawn white = new Pawn(Colors.WHITE);
-        board.add(white);
-        assertEquals(1, board.size());
-
-        Pawn black = new Pawn(Colors.BLACK);
-        board.add(black);
-        assertEquals(2, board.size());
+    @DisplayName("체스 보드 size가 0이 되는 테스트")
+    public void board_size_0() {
+        assertThat(0).isEqualTo(board.size());
     }
 
     @Test
-    @DisplayName("체스 보드 findPawn 테스트")
-    public void addPawn_and_findPawn() {
-        Pawn white = new Pawn(Colors.WHITE);
-        board.add(white);
-        assertEquals(white, board.findPawn(0));
+    @DisplayName("체스 보드 size가 100이 되는 테스트")
+    public void board_size_100() {
+        int size = 100;
+        for (int i = 0; i < size; i++) {
+            board.add(new Pawn());
+        }
+        assertThat(size).isEqualTo(board.size());
     }
 
     @Test
@@ -53,15 +49,17 @@ public class BoardTest {
                         "♙♙♙♙♙♙♙♙" + StringUtils.NEWLINE +
                         "........" + StringUtils.NEWLINE;
 
-        assertEquals(expectedResult, board.print());
+        assertThat(expectedResult).isEqualTo(board.print());
     }
 
     @Test
     @DisplayName("initialize 직후, 흰색, 검은색 폰들의 Symbol 테스트")
     public void find_pawnSymbols() {
         board.initialize();
-        assertEquals("♙♙♙♙♙♙♙♙", board.getPawnSymbols(Colors.WHITE));
-        assertEquals("♟♟♟♟♟♟♟♟", board.getPawnSymbols(Colors.BLACK));
+        assertThat("♙♙♙♙♙♙♙♙").isEqualTo(board.getPawnSymbols(Colors.WHITE));
+        assertThat("♟♟♟♟♟♟♟♟").isEqualTo(board.getPawnSymbols(Colors.BLACK));
     }
+
+
 
 }
