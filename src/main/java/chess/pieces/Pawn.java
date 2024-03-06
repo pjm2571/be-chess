@@ -23,4 +23,8 @@ public class Pawn {
     public String getPawnSymbol(){
         return pawnSymbol.getSymbolShape();
     }
+
+    public Colors getPawnColor(){
+        return pawnColor;
+    }
 }
