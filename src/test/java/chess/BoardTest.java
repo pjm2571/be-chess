@@ -40,28 +40,26 @@ public class BoardTest {
     }
 
     @Test
-    @DisplayName("체스 보드 initialize 테스트")
-    public void board_initialize() {
+    @DisplayName("체스 보드 print() 테스트")
+    public void board_print() {
         String expectedResult =
                 "........\n" +
-                "♟♟♟♟♟♟♟♟\n" +
-                "........\n" +
-                "........\n" +
-                "........\n" +
-                "........\n" +
-                "♙♙♙♙♙♙♙♙\n" +
-                "........\n";
+                        "♟♟♟♟♟♟♟♟\n" +
+                        "........\n" +
+                        "........\n" +
+                        "........\n" +
+                        "........\n" +
+                        "♙♙♙♙♙♙♙♙\n" +
+                        "........\n";
 
-        StringBuilder sb = new StringBuilder();
-
-        Arrays.stream(board.getChessBoard())
-                .forEach(row -> {
-                    Arrays.stream(row).forEach(sb::append);
-                    sb.append("\n");
-                });
-
-        assertEquals(expectedResult, sb.toString());
+        assertEquals(expectedResult, board.print());
     }
 
+    @Test
+    @DisplayName("initialize 직후, 흰색, 검은색 폰들의 Symbol 테스트")
+    public void find_whitePawns() {
+        assertEquals("♙♙♙♙♙♙♙♙", board.getPawnSymbols(Colors.WHITE));
+        assertEquals("♟♟♟♟♟♟♟♟", board.getPawnSymbols(Colors.BLACK));
+    }
 
 }
