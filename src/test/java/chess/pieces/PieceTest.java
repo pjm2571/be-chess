@@ -1,5 +1,6 @@
 package chess.pieces;
 
+import chess.colors.Colors;
 import org.junit.jupiter.api.*;
 
 import static org.assertj.core.api.Assertions.*;
@@ -9,27 +10,27 @@ public class PieceTest {
     @Test
     @DisplayName("모든 체스 Piece들의 color 테스트")
     public void all_pieces_color_test() {
-        verifyPieceColor(Piece.createPiece(Symbols.WHITE_PAWN), Symbols.WHITE_PAWN);
-        verifyPieceColor(Piece.createPiece(Symbols.BLACK_PAWN), Symbols.BLACK_PAWN);
+        verifyPieceColor(Piece.createPiece(Symbols.WHITE_PAWN), Colors.WHITE);
+        verifyPieceColor(Piece.createPiece(Symbols.BLACK_PAWN), Colors.BLACK);
 
-        verifyPieceColor(Piece.createPiece(Symbols.WHITE_KNIGHT), Symbols.WHITE_KNIGHT);
-        verifyPieceColor(Piece.createPiece(Symbols.BLACK_KNIGHT), Symbols.BLACK_KNIGHT);
+        verifyPieceColor(Piece.createPiece(Symbols.WHITE_KNIGHT), Colors.WHITE);
+        verifyPieceColor(Piece.createPiece(Symbols.BLACK_KNIGHT), Colors.BLACK);
 
-        verifyPieceColor(Piece.createPiece(Symbols.WHITE_BISHOP), Symbols.WHITE_BISHOP);
-        verifyPieceColor(Piece.createPiece(Symbols.BLACK_BISHOP), Symbols.BLACK_BISHOP);
+        verifyPieceColor(Piece.createPiece(Symbols.WHITE_BISHOP), Colors.WHITE);
+        verifyPieceColor(Piece.createPiece(Symbols.BLACK_BISHOP), Colors.BLACK);
 
-        verifyPieceColor(Piece.createPiece(Symbols.WHITE_ROOK), Symbols.WHITE_ROOK);
-        verifyPieceColor(Piece.createPiece(Symbols.BLACK_ROOK), Symbols.BLACK_ROOK);
+        verifyPieceColor(Piece.createPiece(Symbols.WHITE_ROOK), Colors.WHITE);
+        verifyPieceColor(Piece.createPiece(Symbols.BLACK_ROOK), Colors.BLACK);
 
-        verifyPieceColor(Piece.createPiece(Symbols.WHITE_QUEEN), Symbols.WHITE_QUEEN);
-        verifyPieceColor(Piece.createPiece(Symbols.BLACK_QUEEN), Symbols.BLACK_QUEEN);
+        verifyPieceColor(Piece.createPiece(Symbols.WHITE_QUEEN), Colors.WHITE);
+        verifyPieceColor(Piece.createPiece(Symbols.BLACK_QUEEN), Colors.BLACK);
 
-        verifyPieceColor(Piece.createPiece(Symbols.WHITE_KING), Symbols.WHITE_KING);
-        verifyPieceColor(Piece.createPiece(Symbols.BLACK_KING), Symbols.BLACK_KING);
+        verifyPieceColor(Piece.createPiece(Symbols.WHITE_KING), Colors.WHITE);
+        verifyPieceColor(Piece.createPiece(Symbols.BLACK_KING), Colors.BLACK);
     }
 
-    private void verifyPieceColor(Piece piece, Symbols symbol) {
-        assertThat(piece.getPieceColor()).isEqualTo(symbol.getPieceColor());
+    private void verifyPieceColor(Piece piece, Colors color) {
+        assertThat(piece.getPieceColor()).isEqualTo(color);
     }
 
     @Test
