@@ -273,4 +273,15 @@ public void create_with_non_color() throws Exception {
 - initialize()를 생성자 부분에서 빼주고, 객체가 생성된 후, initialize()를 통해 생성되도록 변경
 
 
+### 2) Symbol 사용 시 중복된 값의 문제점
+![img.png](step-3-review2.png)
+### ❗ 문제점
+- Symbol은 Colors, String 값을 가지고 있는데, Colors 값을 따로 저장해두어 데이터의 중복이 발생!
+
+### ⭕️ 해결
+- Symbol 타입을 저장하도록 구현
+  - Symbol.getPawnColor()를 통해 색상 반환
+  - Symbol.getPawnSymbol()을 통해 폰의 모양 반환
+
+
 
