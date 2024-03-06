@@ -284,4 +284,27 @@ public void create_with_non_color() throws Exception {
   - Symbol.getPawnSymbol()을 통해 폰의 모양 반환
 
 
+### 3) 패키지 구조화
+![img.png](step-3-review3.png)
+
+### ❗ 문제점
+- colors 패키지는 chess에서 사용되는 값이지만, 하위 구조를 가지지 않는다.
+### ⭕️ 해결
+- colors 패키지를 chess/colors 패키지로 상-하 관계를 가지도록 구현.
+
+
+### 4) assertj와 junit 혼합 사용
+![img.png](step-3-review4.png)
+
+
+
+### ❗ 개선점
+- assertj와 junit5 를 함께 사용하면서 무작정 사용만 했었다.
+- 그러다 보니, 어떤 기능들을 어떤 라이브러리에서 하는 지 잘 몰랐다.
+
+### ⭕️ 해결
+- 먼저, assertj를 통한 테스트 코드를 구현하는 것에 초점을 맞춘다!
+
+
+
 
