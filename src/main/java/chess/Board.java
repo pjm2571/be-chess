@@ -3,6 +3,7 @@ package chess;
 import chess.pieces.Pawn;
 import chess.pieces.Symbols;
 import colors.Colors;
+import utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,11 +56,10 @@ public class Board {
 
     public String print() {
         StringBuilder sb = new StringBuilder();
-
         Arrays.stream(chessBoard)
                 .forEach(row -> {
                     Arrays.stream(row).forEach(sb::append);
-                    sb.append("\n");
+                    sb.append(StringUtils.appendNewLine());
                 });
 
         return sb.toString();
