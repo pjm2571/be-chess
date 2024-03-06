@@ -12,7 +12,7 @@ public class Board {
     private List<Pawn> pawns = new ArrayList<>();
     private String[][] chessBoard = new String[8][8];
 
-    Board() {
+    public Board() {
         initialize();
     }
 
@@ -48,12 +48,32 @@ public class Board {
     private void setPawn(int rowIndex, Colors pawnColor) {
         for (int i = 0; i < 8; i++) {
             Pawn pawn = new Pawn(pawnColor);
-
+            add(pawn);
             chessBoard[rowIndex][i] = pawn.getPawnSymbol();
         }
     }
 
-    public String[][] getChessBoard() {
-        return chessBoard;
+    public String print() {
+        StringBuilder sb = new StringBuilder();
+
+        Arrays.stream(chessBoard)
+                .forEach(row -> {
+                    Arrays.stream(row).forEach(sb::append);
+                    sb.append("\n");
+                });
+
+        return sb.toString();
     }
+
+    public String getPawnSymbols(Colors pawnColor) {
+        StringBuilder sb = new StringBuilder();
+        pawns.stream()
+                .filter(pawn -> pawn.getPawnColor().equals(pawnColor))
+                .map(Pawn::getPawnSymbol) // 각 폰을 문자열로 변환합니다. 예시로 toString() 메서드를 사용했습니다.
+                .forEach(sb::append); // StringBuilder에 추가합니다.
+
+        return sb.toString();
+    }
+
+
 }
