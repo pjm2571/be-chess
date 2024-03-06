@@ -21,4 +21,12 @@ public final class Piece {
         return pieceSymbol.getPieceShape();
     }
 
+    public boolean isWhite(){
+        return pieceSymbol.getPieceColor().equals(Colors.WHITE);
+    }
+
+    public boolean isBlack(){
+        return pieceSymbol.getPieceColor().equals(Colors.BLACK);
+    }
+
 }
