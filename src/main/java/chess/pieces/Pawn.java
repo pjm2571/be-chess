@@ -1,6 +1,6 @@
 package chess.pieces;
 
-import colors.Colors;
+import chess.colors.Colors;
 
 public class Pawn {
     private final Symbols pawnSymbol;
