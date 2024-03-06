@@ -2,7 +2,7 @@ import chess.Board;
 
 import java.util.Scanner;
 
-public class main {
+public class ChessGame {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 
@@ -15,6 +15,7 @@ public class main {
             System.out.print("입력 > ");
             inputCommand = new StringBuilder(sc.nextLine());
             if (inputCommand.toString().equals("start")) {
+                board.initialize();
                 System.out.println(board.print());
                 // 추가 구현
 
