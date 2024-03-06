@@ -1,7 +1,7 @@
 package chess;
 
 import chess.pieces.Pawn;
-import colors.Colors;
+import chess.colors.Colors;
 
 import org.junit.jupiter.api.*;
 import utils.StringUtils;
