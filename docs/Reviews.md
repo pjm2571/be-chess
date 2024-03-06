@@ -296,14 +296,23 @@ public void create_with_non_color() throws Exception {
 ### 4) assertj와 junit 혼합 사용
 ![img.png](step-3-review4.png)
 
-
-
 ### ❗ 개선점
 - assertj와 junit5 를 함께 사용하면서 무작정 사용만 했었다.
 - 그러다 보니, 어떤 기능들을 어떤 라이브러리에서 하는 지 잘 몰랐다.
 
 ### ⭕️ 해결
 - 먼저, assertj를 통한 테스트 코드를 구현하는 것에 초점을 맞춘다!
+
+### 5) 테스트 코드의 명확성
+![img.png](step-3-review5.png)
+
+### ❗ 문제점
+- 테스트 코드가 어떤 역할을 하는지에 대해 '명확한' 점이 없었다.
+
+### ⭕️ 해결
+- 테스트 코드가 '어떤 동작을' '무엇을 통해' 동작하는지를 상세히 구현한다.
+
+
 
 
 
