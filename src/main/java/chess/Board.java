@@ -13,9 +13,6 @@ public class Board {
     private List<Pawn> pawns = new ArrayList<>();
     private String[][] chessBoard = new String[8][8];
 
-    public Board() {
-        initialize();
-    }
 
     public void add(Pawn pawn) {
         pawns.add(pawn);
@@ -29,7 +26,7 @@ public class Board {
         return pawns.get(pawnIndex);
     }
 
-    private void initialize() {
+    public void initialize() {
         setBlank(0);
         setPawn(1, Colors.BLACK);
         setBlank(2);
