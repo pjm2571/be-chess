@@ -6,6 +6,32 @@ import org.junit.jupiter.api.*;
 import static org.assertj.core.api.Assertions.*;
 
 public class PieceTest {
+    @Test
+    @DisplayName("흰색 Piece들의 color 테스트")
+    public void white_pieces_color_test() {
+        Colors whiteColor = Colors.WHITE;
+
+        verifyPieceColor(Piece.createPiece(Symbol.WHITE_PAWN), whiteColor);
+        verifyPieceColor(Piece.createPiece(Symbol.WHITE_KNIGHT), whiteColor);
+        verifyPieceColor(Piece.createPiece(Symbol.WHITE_BISHOP), whiteColor);
+        verifyPieceColor(Piece.createPiece(Symbol.WHITE_ROOK), whiteColor);
+        verifyPieceColor(Piece.createPiece(Symbol.WHITE_QUEEN), whiteColor);
+        verifyPieceColor(Piece.createPiece(Symbol.WHITE_KING), whiteColor);
+    }
+
+    @Test
+    @DisplayName("검은색 Piece들의 color 테스트")
+    public void black_pieces_color_test() {
+        Colors blackColor = Colors.BLACK;
+
+        verifyPieceColor(Piece.createPiece(Symbol.BLACK_PAWN), blackColor);
+        verifyPieceColor(Piece.createPiece(Symbol.BLACK_KNIGHT), blackColor);
+        verifyPieceColor(Piece.createPiece(Symbol.BLACK_BISHOP), blackColor);
+        verifyPieceColor(Piece.createPiece(Symbol.BLACK_ROOK), blackColor);
+        verifyPieceColor(Piece.createPiece(Symbol.BLACK_QUEEN), blackColor);
+        verifyPieceColor(Piece.createPiece(Symbol.BLACK_KING), blackColor);
+    }
+
 
     @Test
     @DisplayName("모든 체스 Piece들의 color 테스트")
@@ -32,6 +58,7 @@ public class PieceTest {
     private void verifyPieceColor(Piece piece, Colors color) {
         assertThat(piece.getPieceColor()).isEqualTo(color);
     }
+
 
     @Test
     @DisplayName("모든 체스 Piece들의 shape 테스트")
@@ -72,4 +99,20 @@ public class PieceTest {
         Piece piece = Piece.createPiece(Symbol.BLACK_KNIGHT);
         assertThat(piece.isWhite()).isEqualTo(false);
     }
+
+    @Test
+    @DisplayName("흰색 piece에 대한 isBlack 메소드 테스트")
+    public void whitePiece_isBlack_test(){
+        Piece piece = Piece.createPiece(Symbol.WHITE_KNIGHT);
+        assertThat(piece.isBlack()).isEqualTo(false);
+    }
+
+    @Test
+    @DisplayName("검은색 piece에 대한 isBlack 메소드 테스트")
+    public void blackPiece_isBlack_test(){
+        Piece piece = Piece.createPiece(Symbol.BLACK_KNIGHT);
+        assertThat(piece.isBlack()).isEqualTo(true);
+    }
+
+
 }
