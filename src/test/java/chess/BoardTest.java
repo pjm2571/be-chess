@@ -6,9 +6,7 @@ import colors.Colors;
 import org.junit.jupiter.api.*;
 import utils.StringUtils;
 
-import java.util.Arrays;
 
-import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -43,6 +41,8 @@ public class BoardTest {
     @Test
     @DisplayName("체스 보드 print() 테스트")
     public void board_print() {
+        board.initialize();
+
         String expectedResult =
                 "........" + StringUtils.NEWLINE +
                         "♟♟♟♟♟♟♟♟" + StringUtils.NEWLINE +
@@ -58,7 +58,8 @@ public class BoardTest {
 
     @Test
     @DisplayName("initialize 직후, 흰색, 검은색 폰들의 Symbol 테스트")
-    public void find_whitePawns() {
+    public void find_pawnSymbols() {
+        board.initialize();
         assertEquals("♙♙♙♙♙♙♙♙", board.getPawnSymbols(Colors.WHITE));
         assertEquals("♟♟♟♟♟♟♟♟", board.getPawnSymbols(Colors.BLACK));
     }
