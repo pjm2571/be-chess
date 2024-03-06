@@ -5,6 +5,9 @@ import colors.Colors;
 
 import org.junit.jupiter.api.*;
 
+import java.util.Arrays;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
@@ -35,5 +38,30 @@ public class BoardTest {
         board.add(white);
         assertEquals(white, board.findPawn(0));
     }
+
+    @Test
+    @DisplayName("체스 보드 initialize 테스트")
+    public void board_initialize() {
+        String expectedResult =
+                "........\n" +
+                "♟♟♟♟♟♟♟♟\n" +
+                "........\n" +
+                "........\n" +
+                "........\n" +
+                "........\n" +
+                "♙♙♙♙♙♙♙♙\n" +
+                "........\n";
+
+        StringBuilder sb = new StringBuilder();
+
+        Arrays.stream(board.getChessBoard())
+                .forEach(row -> {
+                    Arrays.stream(row).forEach(sb::append);
+                    sb.append("\n");
+                });
+
+        assertEquals(expectedResult, sb.toString());
+    }
+
 
 }
