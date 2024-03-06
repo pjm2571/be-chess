@@ -4,7 +4,7 @@ import chess.colors.Colors;
 
 import java.util.Arrays;
 
-public enum Symbols {
+public enum Symbol {
     WHITE_PAWN(Colors.WHITE, "♙"),
     BLACK_PAWN(Colors.BLACK, "♟"),
     WHITE_KNIGHT(Colors.WHITE, "♘"),
@@ -21,16 +21,9 @@ public enum Symbols {
     private Colors symbolColor;
     private String symbolShape;
 
-    Symbols(Colors symbolColor, String symbolShape) {
+    Symbol(Colors symbolColor, String symbolShape) {
         this.symbolColor = symbolColor;
         this.symbolShape = symbolShape;
-    }
-
-    public static Symbols getPawnSymbol(Colors pawnColor) {
-        return Arrays.stream(Symbols.values())
-                .filter(symbol -> symbol.symbolColor == pawnColor)
-                .findFirst()
-                .orElse(null);
     }
 
     public Colors getPieceColor() {
