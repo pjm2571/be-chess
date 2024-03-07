@@ -4,6 +4,7 @@ import chess.pieces.Piece;
 import utils.StringUtils;
 
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class Rank {
     private ArrayList<Piece> pieces;
@@ -31,6 +32,12 @@ public class Rank {
 
     public void set(int pieceIndex, Piece piece) {
         pieces.set(pieceIndex, piece);
+    }
+
+    public ArrayList<Piece> getPieces() {
+        return pieces.stream()
+                .filter(p -> !p.equals(Piece.createBlank())) // 빈 조각이 아닌 것만 필터링
+                .collect(Collectors.toCollection(ArrayList::new)); // 필터링된 결과를 ArrayList로 변환하여 저장
     }
 
 }
