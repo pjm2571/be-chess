@@ -96,4 +96,8 @@ public final class Piece {
         return Objects.hash(color, type);
     }
 
+    public double getDefaultPoint(){
+        return type.getDefaultPoint();
+    }
+
 }
