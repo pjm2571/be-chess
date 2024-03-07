@@ -1,7 +1,10 @@
 package chess.board;
 
+import chess.pieces.Piece;
 import org.junit.jupiter.api.*;
 import utils.StringUtils;
+
+import static chess.pieces.Piece.Type.*;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -40,4 +43,24 @@ public class BoardTest {
 
     }
 
+    @Test
+    @DisplayName("좌표를 입력받아 좌표에 해당하는 기물을 찾는 테스트")
+    public void find_piece_at_board_test(){
+        board.initialize();
+
+        assertThat(board.findPieceByPosition("a8")).isEqualTo(Piece.createBlack(ROOK));
+
+        assertThat(board.findPieceByPosition("h1")).isEqualTo(Piece.createWhite(ROOK));
+    }
+
+    @Test
+    @DisplayName("좌표를 입력받아 좌표에 해당하는 기물을 find 오류 테스트")
+    public void find_piece_at_board_error_test(){
+        board.initialize();
+
+        assertThat(board.findPieceByPosition("a8")).isNotEqualTo(Piece.createBlank());
+
+        assertThat(board.findPieceByPosition("h1")).isNotEqualTo(Piece.createBlank());
+
+    }
 }
