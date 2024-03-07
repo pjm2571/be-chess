@@ -25,4 +25,8 @@ public class Rank {
         return StringUtils.appendNewLine(sb.toString());
     }
 
+    public Piece getPieceByPieceIndex(int pieceIndex) {
+        return pieces.get(--pieceIndex);
+    }
+
 }
