@@ -4,6 +4,9 @@ import chess.pieces.Piece;
 import org.junit.jupiter.api.*;
 import utils.StringUtils;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import static chess.pieces.Piece.Type.*;
 
 import static org.assertj.core.api.Assertions.*;
@@ -148,5 +151,62 @@ public class BoardTest {
         assertThat(board.calculatePoint(Piece.Color.WHITE)).isEqualTo(expectedPoint);
     }
 
+    @Test
+    @DisplayName("흰색 기물들의 점수 내림차순 정렬 테스트")
+    public void board_descending_sort_test() {
+        board.initialize();
+
+        ArrayList<Piece> expectedResult = new ArrayList<>();
+        expectedResult.add(Piece.createWhite(QUEEN));
+
+        expectedResult.add(Piece.createWhite(ROOK));
+        expectedResult.add(Piece.createWhite(ROOK));
+
+        expectedResult.add(Piece.createWhite(BISHOP));
+        expectedResult.add(Piece.createWhite(BISHOP));
+
+        expectedResult.add(Piece.createWhite(KNIGHT));
+        expectedResult.add(Piece.createWhite(KNIGHT));
+
+        for (int i = 0; i < 8; i++) {
+            expectedResult.add(Piece.createWhite(PAWN));
+        }
+
+        expectedResult.add(Piece.createWhite(KING));
+
+        ArrayList<Piece> whitePieces = board.getValidSortedPieces(Piece.Color.WHITE);
+
+        assertThat(whitePieces).isEqualTo(expectedResult);
+    }
+
+    @Test
+    @DisplayName("흰색 기물들의 점수 오름차순 정렬 테스트")
+    public void board_ascending_sort_test() {
+        board.initialize();
+
+        ArrayList<Piece> expectedResult = new ArrayList<>();
+        expectedResult.add(Piece.createWhite(QUEEN));
+
+        expectedResult.add(Piece.createWhite(ROOK));
+        expectedResult.add(Piece.createWhite(ROOK));
+
+        expectedResult.add(Piece.createWhite(BISHOP));
+        expectedResult.add(Piece.createWhite(BISHOP));
+
+        expectedResult.add(Piece.createWhite(KNIGHT));
+        expectedResult.add(Piece.createWhite(KNIGHT));
+
+        for (int i = 0; i < 8; i++) {
+            expectedResult.add(Piece.createWhite(PAWN));
+        }
+
+        expectedResult.add(Piece.createWhite(KING));
+
+        ArrayList<Piece> whitePieces = board.getValidSortedPieces(Piece.Color.WHITE);
+
+        Collections.reverse(expectedResult);
+
+        assertThat(whitePieces).isNotEqualTo(expectedResult);
+    }
 
 }
