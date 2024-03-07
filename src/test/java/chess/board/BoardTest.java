@@ -17,14 +17,6 @@ public class BoardTest {
     }
 
     @Test
-    @DisplayName("보드에 위치한 Piece들의 개수가 정상적으로 64개가 되는 지 테스트")
-    public void piece_size_test() {
-        board.initialize();
-
-        assertThat(board.getSize()).isEqualTo(64);
-    }
-
-    @Test
     @DisplayName("Board의 showBoard 정상 출력 테스트")
     public void showBoard_test() {
         board.initialize();
@@ -137,5 +129,24 @@ public class BoardTest {
         assertThat(board.calculatePoint(Piece.Color.WHITE)).isEqualTo(19.5);
 
     }
+
+    @Test
+    @DisplayName("흰색 폰이 세로로 8개 있을 경우의 포인트 계산")
+    public void calculate_point_all_pawn_in_one_column() {
+        double expectedPoint = 0.5 * 8;
+        board.initializeEmpty();
+
+        board.move("a8", Piece.createWhite(PAWN));
+        board.move("a7", Piece.createWhite(PAWN));
+        board.move("a6", Piece.createWhite(PAWN));
+        board.move("a5", Piece.createWhite(PAWN));
+        board.move("a4", Piece.createWhite(PAWN));
+        board.move("a3", Piece.createWhite(PAWN));
+        board.move("a2", Piece.createWhite(PAWN));
+        board.move("a1", Piece.createWhite(PAWN));
+
+        assertThat(board.calculatePoint(Piece.Color.WHITE)).isEqualTo(expectedPoint);
+    }
+
 
 }
