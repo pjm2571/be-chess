@@ -26,7 +26,7 @@ public class Rank {
     }
 
     public Piece getPieceByPieceIndex(int pieceIndex) {
-        return pieces.get(--pieceIndex);
+        return pieces.get(pieceIndex);
     }
 
 }
