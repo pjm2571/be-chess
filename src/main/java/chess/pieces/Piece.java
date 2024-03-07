@@ -63,7 +63,15 @@ public final class Piece {
     }
 
     /* 피스의 타입을 반환 */
-    public Type getType(){
+    public Type getType() {
         return type;
     }
+
+    public char getRepresentation() {
+        if (color.equals(Color.BLACK)){
+            return type.getBlackRepresentation();
+        }
+        return type.getWhiteRepresentation();
+    }
+    
 }
