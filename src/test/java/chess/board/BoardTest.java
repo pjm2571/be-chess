@@ -7,7 +7,7 @@ import utils.StringUtils;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static chess.pieces.Piece.Type.*;
+import static chess.pieces.Piece.*;
 
 import static org.assertj.core.api.Assertions.*;
 
@@ -43,9 +43,10 @@ public class BoardTest {
     public void find_piece_at_board_test() {
         board.initialize();
 
-        assertThat(board.findPieceByPosition("a8")).isEqualTo(Piece.createBlack(ROOK));
+        assertThat(board.findPieceByPosition("a8")).isEqualTo(Piece.createPiece(Color.BLACK, Type.ROOK));
 
-        assertThat(board.findPieceByPosition("h1")).isEqualTo(Piece.createWhite(ROOK));
+        assertThat(board.findPieceByPosition("h1")).isEqualTo(Piece.createPiece(Color.WHITE, Type.ROOK));
+
         System.out.println(board.showBoard());
     }
 
@@ -54,9 +55,10 @@ public class BoardTest {
     public void find_piece_at_board_error_test() {
         board.initialize();
 
-        assertThat(board.findPieceByPosition("a8")).isNotEqualTo(Piece.createBlank());
+        assertThat(board.findPieceByPosition("a8")).isNotEqualTo(Piece.createPiece(Color.NOCOLOR, Type.NO_PIECE));
 
-        assertThat(board.findPieceByPosition("h1")).isNotEqualTo(Piece.createBlank());
+        assertThat(board.findPieceByPosition("h1")).isNotEqualTo(Piece.createPiece(Color.NOCOLOR, Type.NO_PIECE));
+
         System.out.println(board.showBoard());
     }
 
@@ -66,7 +68,7 @@ public class BoardTest {
         board.initializeEmpty();
 
         String position = "a8";
-        Piece whitePawn = Piece.createWhite(PAWN);
+        Piece whitePawn = Piece.createPiece(Color.WHITE, Type.PAWN);
         board.move(position, whitePawn);
 
         assertThat(board.findPieceByPosition(position)).isEqualTo(whitePawn);
@@ -103,29 +105,30 @@ public class BoardTest {
         //....rk.. 1
         //abcdefgh
 
-        board.move("b8", Piece.createBlack(KING));
-        board.move("c8", Piece.createBlack(ROOK));
+        board.move("b8", Piece.createPiece(Piece.Color.BLACK, Piece.Type.KING));
+        board.move("c8", Piece.createPiece(Piece.Color.BLACK, Piece.Type.ROOK));
 
-        board.move("a7", Piece.createBlack(PAWN));
-        board.move("c7", Piece.createBlack(PAWN));
-        board.move("d7", Piece.createBlack(BISHOP));
+        board.move("a7", Piece.createPiece(Piece.Color.BLACK, Piece.Type.PAWN));
+        board.move("c7", Piece.createPiece(Piece.Color.BLACK, Piece.Type.PAWN));
+        board.move("d7", Piece.createPiece(Piece.Color.BLACK, Piece.Type.BISHOP));
 
-        board.move("b6", Piece.createBlack(PAWN));
-        board.move("e6", Piece.createBlack(QUEEN));
+        board.move("b6", Piece.createPiece(Piece.Color.BLACK, Piece.Type.PAWN));
+        board.move("e6", Piece.createPiece(Piece.Color.BLACK, Piece.Type.QUEEN));
 
         assertThat(board.calculatePoint(Piece.Color.BLACK)).isEqualTo(20.0);
 
-        board.move("f4", Piece.createWhite(KNIGHT));
-        board.move("g4", Piece.createWhite(QUEEN));
+        board.move("f4", Piece.createPiece(Piece.Color.WHITE, Piece.Type.KNIGHT));
+        board.move("g4", Piece.createPiece(Piece.Color.WHITE, Piece.Type.QUEEN));
 
-        board.move("f3", Piece.createWhite(PAWN));
-        board.move("h3", Piece.createWhite(PAWN));
+        board.move("f3", Piece.createPiece(Piece.Color.WHITE, Piece.Type.PAWN));
+        board.move("h3", Piece.createPiece(Piece.Color.WHITE, Piece.Type.PAWN));
 
-        board.move("f2", Piece.createWhite(PAWN));
-        board.move("g2", Piece.createWhite(PAWN));
+        board.move("f2", Piece.createPiece(Piece.Color.WHITE, Piece.Type.PAWN));
+        board.move("g2", Piece.createPiece(Piece.Color.WHITE, Piece.Type.PAWN));
 
-        board.move("e1", Piece.createWhite(ROOK));
-        board.move("f1", Piece.createWhite(KING));
+        board.move("e1", Piece.createPiece(Piece.Color.WHITE, Piece.Type.ROOK));
+        board.move("f1", Piece.createPiece(Piece.Color.WHITE, Piece.Type.KING));
+
 
         System.out.println(board.showBoard());
 
@@ -139,14 +142,9 @@ public class BoardTest {
         double expectedPoint = 0.5 * 8;
         board.initializeEmpty();
 
-        board.move("a8", Piece.createWhite(PAWN));
-        board.move("a7", Piece.createWhite(PAWN));
-        board.move("a6", Piece.createWhite(PAWN));
-        board.move("a5", Piece.createWhite(PAWN));
-        board.move("a4", Piece.createWhite(PAWN));
-        board.move("a3", Piece.createWhite(PAWN));
-        board.move("a2", Piece.createWhite(PAWN));
-        board.move("a1", Piece.createWhite(PAWN));
+        for (int row = 8; row >= 1; row--) {
+            board.move("a" + row, Piece.createPiece(Piece.Color.WHITE, Piece.Type.PAWN));
+        }
 
         assertThat(board.calculatePoint(Piece.Color.WHITE)).isEqualTo(expectedPoint);
     }
@@ -157,24 +155,25 @@ public class BoardTest {
         board.initialize();
 
         ArrayList<Piece> expectedResult = new ArrayList<>();
-        expectedResult.add(Piece.createWhite(QUEEN));
+        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.QUEEN));
 
-        expectedResult.add(Piece.createWhite(ROOK));
-        expectedResult.add(Piece.createWhite(ROOK));
+        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.ROOK));
+        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.ROOK));
 
-        expectedResult.add(Piece.createWhite(BISHOP));
-        expectedResult.add(Piece.createWhite(BISHOP));
+        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.BISHOP));
+        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.BISHOP));
 
-        expectedResult.add(Piece.createWhite(KNIGHT));
-        expectedResult.add(Piece.createWhite(KNIGHT));
+        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.KNIGHT));
+        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.KNIGHT));
 
         for (int i = 0; i < 8; i++) {
-            expectedResult.add(Piece.createWhite(PAWN));
+            expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.PAWN));
         }
 
-        expectedResult.add(Piece.createWhite(KING));
+        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.KING));
 
-        ArrayList<Piece> whitePieces = board.getValidSortedPieces(Piece.Color.WHITE);
+
+        ArrayList<Piece> whitePieces = board.getPiecesInAscendingPoint(Piece.Color.WHITE);
 
         assertThat(whitePieces).isEqualTo(expectedResult);
     }
@@ -185,24 +184,24 @@ public class BoardTest {
         board.initialize();
 
         ArrayList<Piece> expectedResult = new ArrayList<>();
-        expectedResult.add(Piece.createWhite(QUEEN));
+        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.QUEEN));
 
-        expectedResult.add(Piece.createWhite(ROOK));
-        expectedResult.add(Piece.createWhite(ROOK));
+        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.ROOK));
+        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.ROOK));
 
-        expectedResult.add(Piece.createWhite(BISHOP));
-        expectedResult.add(Piece.createWhite(BISHOP));
+        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.BISHOP));
+        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.BISHOP));
 
-        expectedResult.add(Piece.createWhite(KNIGHT));
-        expectedResult.add(Piece.createWhite(KNIGHT));
+        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.KNIGHT));
+        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.KNIGHT));
 
         for (int i = 0; i < 8; i++) {
-            expectedResult.add(Piece.createWhite(PAWN));
+            expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.PAWN));
         }
 
-        expectedResult.add(Piece.createWhite(KING));
+        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.KING));
 
-        ArrayList<Piece> whitePieces = board.getValidSortedPieces(Piece.Color.WHITE);
+        ArrayList<Piece> whitePieces = board.getPiecesInAscendingPoint(Piece.Color.WHITE);
 
         Collections.reverse(expectedResult);
 
