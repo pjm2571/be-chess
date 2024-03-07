@@ -2,73 +2,75 @@ package chess.pieces;
 
 import org.junit.jupiter.api.*;
 
+import static chess.pieces.Piece.*;
+
 import static org.assertj.core.api.Assertions.*;
 
 public class PieceTest {
 
     @Test
-    @DisplayName("흰색 기물들의 정상 Type 테스트")
+    @DisplayName("모든 흰색 기물들의 Type 정상 매칭 테스트")
     public void whitePieces_type_test() {
-        Piece.Type pieceType = Piece.Type.PAWN;
-        assertThat(Piece.createWhite(Piece.Type.PAWN).getType()).isEqualTo(pieceType);
+        Type pieceType = Type.PAWN;
+        assertThat(Piece.createPiece(Color.WHITE, Type.PAWN).getType()).isEqualTo(pieceType);
 
-        pieceType = Piece.Type.ROOK;
-        assertThat(Piece.createWhite(Piece.Type.ROOK).getType()).isEqualTo(pieceType);
+        pieceType = Type.ROOK;
+        assertThat(Piece.createPiece(Color.WHITE, Type.ROOK).getType()).isEqualTo(pieceType);
 
-        pieceType = Piece.Type.KNIGHT;
-        assertThat(Piece.createWhite(Piece.Type.KNIGHT).getType()).isEqualTo(pieceType);
+        pieceType = Type.KNIGHT;
+        assertThat(Piece.createPiece(Color.WHITE, Type.KNIGHT).getType()).isEqualTo(pieceType);
 
-        pieceType = Piece.Type.BISHOP;
-        assertThat(Piece.createWhite(Piece.Type.BISHOP).getType()).isEqualTo(pieceType);
+        pieceType = Type.BISHOP;
+        assertThat(Piece.createPiece(Color.WHITE, Type.BISHOP).getType()).isEqualTo(pieceType);
 
-        pieceType = Piece.Type.QUEEN;
-        assertThat(Piece.createWhite(Piece.Type.QUEEN).getType()).isEqualTo(pieceType);
+        pieceType = Type.QUEEN;
+        assertThat(Piece.createPiece(Color.WHITE, Type.QUEEN).getType()).isEqualTo(pieceType);
 
-        pieceType = Piece.Type.KING;
-        assertThat(Piece.createWhite(Piece.Type.KING).getType()).isEqualTo(pieceType);
+        pieceType = Type.KING;
+        assertThat(Piece.createPiece(Color.WHITE, Type.KING).getType()).isEqualTo(pieceType);
     }
 
     @Test
-    @DisplayName("검은색 기물들의 정상 Type 테스트")
+    @DisplayName("모든 검은색 기물들의 Type 정상 매칭 테스트")
     public void blackPieces_type_test() {
-        Piece.Type pieceType = Piece.Type.PAWN;
-        assertThat(Piece.createBlack(Piece.Type.PAWN).getType()).isEqualTo(pieceType);
+        Piece.Type pieceType = Type.PAWN;
+        assertThat(Piece.createPiece(Color.BLACK, Type.PAWN).getType()).isEqualTo(pieceType);
 
-        pieceType = Piece.Type.ROOK;
-        assertThat(Piece.createBlack(Piece.Type.ROOK).getType()).isEqualTo(pieceType);
+        pieceType = Type.ROOK;
+        assertThat(Piece.createPiece(Color.BLACK, Type.ROOK).getType()).isEqualTo(pieceType);
 
-        pieceType = Piece.Type.KNIGHT;
-        assertThat(Piece.createBlack(Piece.Type.KNIGHT).getType()).isEqualTo(pieceType);
+        pieceType = Type.KNIGHT;
+        assertThat(Piece.createPiece(Color.BLACK, Type.KNIGHT).getType()).isEqualTo(pieceType);
 
-        pieceType = Piece.Type.BISHOP;
-        assertThat(Piece.createBlack(Piece.Type.BISHOP).getType()).isEqualTo(pieceType);
+        pieceType = Type.BISHOP;
+        assertThat(Piece.createPiece(Color.BLACK, Type.BISHOP).getType()).isEqualTo(pieceType);
 
-        pieceType = Piece.Type.QUEEN;
-        assertThat(Piece.createBlack(Piece.Type.QUEEN).getType()).isEqualTo(pieceType);
+        pieceType = Type.QUEEN;
+        assertThat(Piece.createPiece(Color.BLACK, Type.QUEEN).getType()).isEqualTo(pieceType);
 
-        pieceType = Piece.Type.KING;
-        assertThat(Piece.createBlack(Piece.Type.KING).getType()).isEqualTo(pieceType);
+        pieceType = Type.KING;
+        assertThat(Piece.createPiece(Color.BLACK, Type.KING).getType()).isEqualTo(pieceType);
     }
 
     @Test
-    @DisplayName("기물들의 비정상 Type 테스트")
+    @DisplayName("폰을 제외한 검은색 기물들에 대한 폰 기물과의 Type 매칭 테스트")
     public void pieces_type_error_test() {
-        Piece.Type pieceType = Piece.Type.PAWN;
+        Type pieceType = Type.PAWN;
 
-        assertThat(Piece.createBlack(Piece.Type.ROOK).getType()).isNotEqualTo(pieceType);
-        assertThat(Piece.createBlack(Piece.Type.KNIGHT).getType()).isNotEqualTo(pieceType);
-        assertThat(Piece.createBlack(Piece.Type.BISHOP).getType()).isNotEqualTo(pieceType);
-        assertThat(Piece.createBlack(Piece.Type.QUEEN).getType()).isNotEqualTo(pieceType);
-        assertThat(Piece.createBlack(Piece.Type.KING).getType()).isNotEqualTo(pieceType);
-        assertThat(Piece.createBlack(Piece.Type.NO_PIECE).getType()).isNotEqualTo(pieceType);
+        assertThat(Piece.createPiece(Color.BLACK, Piece.Type.ROOK).getType()).isNotEqualTo(pieceType);
+        assertThat(Piece.createPiece(Color.BLACK, Piece.Type.KNIGHT).getType()).isNotEqualTo(pieceType);
+        assertThat(Piece.createPiece(Color.BLACK, Piece.Type.BISHOP).getType()).isNotEqualTo(pieceType);
+        assertThat(Piece.createPiece(Color.BLACK, Piece.Type.QUEEN).getType()).isNotEqualTo(pieceType);
+        assertThat(Piece.createPiece(Color.BLACK, Piece.Type.KING).getType()).isNotEqualTo(pieceType);
+        assertThat(Piece.createPiece(Color.BLACK, Piece.Type.NO_PIECE).getType()).isNotEqualTo(pieceType);
     }
 
     @Test
-    @DisplayName("흰색 기물들의 정상 representation 테스트")
+    @DisplayName("모든 흰색 기물들의 정상 representation 테스트")
     public void whitePieces_representation_test() {
         char whitePieceRepresentation = 'p';
-        assertThat(Piece.Type.PAWN.getWhiteRepresentation()).isEqualTo(whitePieceRepresentation);
 
+        assertThat(Piece.Type.PAWN.getWhiteRepresentation()).isEqualTo(whitePieceRepresentation);
 
         whitePieceRepresentation = 'r';
         assertThat(Piece.Type.ROOK.getWhiteRepresentation()).isEqualTo(whitePieceRepresentation);
@@ -90,6 +92,7 @@ public class PieceTest {
     @DisplayName("검은색 기물들의 정상 representation 테스트")
     public void blackPieces_representation_test() {
         char blackPieceRepresentation = 'P';
+
         assertThat(Piece.Type.PAWN.getBlackRepresentation()).isEqualTo(blackPieceRepresentation);
 
         blackPieceRepresentation = 'R';
@@ -109,9 +112,10 @@ public class PieceTest {
     }
 
     @Test
-    @DisplayName("기물들의 비정상 representation 테스트")
+    @DisplayName("폰을 제외한 모든 색상의 기물들에 대한 폰 representation 테스트")
     public void pieces_representation_error_test() {
         char whitePawnRepresentation = 'p';
+        
         assertThat(Piece.Type.ROOK.getWhiteRepresentation()).isNotEqualTo(whitePawnRepresentation);
         assertThat(Piece.Type.KNIGHT.getWhiteRepresentation()).isNotEqualTo(whitePawnRepresentation);
         assertThat(Piece.Type.BISHOP.getWhiteRepresentation()).isNotEqualTo(whitePawnRepresentation);
@@ -134,12 +138,13 @@ public class PieceTest {
     public void whitePieces_color_test() {
         Piece.Color whiteColor = Piece.Color.WHITE;
 
-        verifyPieceColor(Piece.createWhite(Piece.Type.PAWN), whiteColor);
-        verifyPieceColor(Piece.createWhite(Piece.Type.ROOK), whiteColor);
-        verifyPieceColor(Piece.createWhite(Piece.Type.KNIGHT), whiteColor);
-        verifyPieceColor(Piece.createWhite(Piece.Type.BISHOP), whiteColor);
-        verifyPieceColor(Piece.createWhite(Piece.Type.QUEEN), whiteColor);
-        verifyPieceColor(Piece.createWhite(Piece.Type.KING), whiteColor);
+        verifyPieceColor(Piece.createPiece(Color.WHITE, Piece.Type.PAWN), whiteColor);
+        verifyPieceColor(Piece.createPiece(Color.WHITE, Piece.Type.ROOK), whiteColor);
+        verifyPieceColor(Piece.createPiece(Color.WHITE, Piece.Type.KNIGHT), whiteColor);
+        verifyPieceColor(Piece.createPiece(Color.WHITE, Piece.Type.BISHOP), whiteColor);
+        verifyPieceColor(Piece.createPiece(Color.WHITE, Piece.Type.QUEEN), whiteColor);
+        verifyPieceColor(Piece.createPiece(Color.WHITE, Piece.Type.KING), whiteColor);
+
     }
 
     @Test
@@ -147,12 +152,12 @@ public class PieceTest {
     public void blackPieces_color_test() {
         Piece.Color blackColor = Piece.Color.BLACK;
 
-        verifyPieceColor(Piece.createBlack(Piece.Type.PAWN), blackColor);
-        verifyPieceColor(Piece.createBlack(Piece.Type.ROOK), blackColor);
-        verifyPieceColor(Piece.createBlack(Piece.Type.KNIGHT), blackColor);
-        verifyPieceColor(Piece.createBlack(Piece.Type.BISHOP), blackColor);
-        verifyPieceColor(Piece.createBlack(Piece.Type.QUEEN), blackColor);
-        verifyPieceColor(Piece.createBlack(Piece.Type.KING), blackColor);
+        verifyPieceColor(Piece.createPiece(Color.BLACK, Piece.Type.PAWN), blackColor);
+        verifyPieceColor(Piece.createPiece(Color.BLACK, Piece.Type.ROOK), blackColor);
+        verifyPieceColor(Piece.createPiece(Color.BLACK, Piece.Type.KNIGHT), blackColor);
+        verifyPieceColor(Piece.createPiece(Color.BLACK, Piece.Type.BISHOP), blackColor);
+        verifyPieceColor(Piece.createPiece(Color.BLACK, Piece.Type.QUEEN), blackColor);
+        verifyPieceColor(Piece.createPiece(Color.BLACK, Piece.Type.KING), blackColor);
     }
 
     private void verifyPieceColor(Piece piece, Piece.Color color) {
@@ -160,24 +165,23 @@ public class PieceTest {
     }
 
     @Test
-    @DisplayName("기물들의 비정상 color 테스트")
+    @DisplayName("모든 색상의 기물들 color mismatch 테스트")
     public void pieces_color_error_test() {
         Piece.Color whiteColor = Piece.Color.WHITE;
-        verifyPieceColorError(Piece.createBlack(Piece.Type.PAWN), whiteColor);
-        verifyPieceColorError(Piece.createBlack(Piece.Type.ROOK), whiteColor);
-        verifyPieceColorError(Piece.createBlack(Piece.Type.KNIGHT), whiteColor);
-        verifyPieceColorError(Piece.createBlack(Piece.Type.BISHOP), whiteColor);
-        verifyPieceColorError(Piece.createBlack(Piece.Type.QUEEN), whiteColor);
-        verifyPieceColorError(Piece.createBlack(Piece.Type.KING), whiteColor);
+        verifyPieceColorError(Piece.createPiece(Color.BLACK, Piece.Type.PAWN), whiteColor);
+        verifyPieceColorError(Piece.createPiece(Color.BLACK, Piece.Type.ROOK), whiteColor);
+        verifyPieceColorError(Piece.createPiece(Color.BLACK, Piece.Type.KNIGHT), whiteColor);
+        verifyPieceColorError(Piece.createPiece(Color.BLACK, Piece.Type.BISHOP), whiteColor);
+        verifyPieceColorError(Piece.createPiece(Color.BLACK, Piece.Type.QUEEN), whiteColor);
+        verifyPieceColorError(Piece.createPiece(Color.BLACK, Piece.Type.KING), whiteColor);
 
         Piece.Color blackColor = Piece.Color.BLACK;
-        verifyPieceColorError(Piece.createWhite(Piece.Type.PAWN), blackColor);
-        verifyPieceColorError(Piece.createWhite(Piece.Type.ROOK), blackColor);
-        verifyPieceColorError(Piece.createWhite(Piece.Type.KNIGHT), blackColor);
-        verifyPieceColorError(Piece.createWhite(Piece.Type.BISHOP), blackColor);
-        verifyPieceColorError(Piece.createWhite(Piece.Type.QUEEN), blackColor);
-        verifyPieceColorError(Piece.createWhite(Piece.Type.KING), blackColor);
-
+        verifyPieceColorError(Piece.createPiece(Color.WHITE, Piece.Type.PAWN), blackColor);
+        verifyPieceColorError(Piece.createPiece(Color.WHITE, Piece.Type.ROOK), blackColor);
+        verifyPieceColorError(Piece.createPiece(Color.WHITE, Piece.Type.KNIGHT), blackColor);
+        verifyPieceColorError(Piece.createPiece(Color.WHITE, Piece.Type.BISHOP), blackColor);
+        verifyPieceColorError(Piece.createPiece(Color.WHITE, Piece.Type.QUEEN), blackColor);
+        verifyPieceColorError(Piece.createPiece(Color.WHITE, Piece.Type.KING), blackColor);
     }
 
     private void verifyPieceColorError(Piece piece, Piece.Color color) {
@@ -187,7 +191,7 @@ public class PieceTest {
     @Test
     @DisplayName("아무 기물도 없는 Piece의 Color 테스트")
     public void noPiece_color_test() {
-        Piece blankPiece = Piece.createBlank();
+        Piece blankPiece = Piece.createPiece(Color.NOCOLOR, Type.NO_PIECE);
 
         assertThat(blankPiece.getColor()).isEqualTo(Piece.Color.NOCOLOR);
     }
@@ -195,7 +199,7 @@ public class PieceTest {
     @Test
     @DisplayName("아무 기물도 없는 Piece의 Type 테스트")
     public void noPiece_type_test() {
-        Piece blankPiece = Piece.createBlank();
+        Piece blankPiece = Piece.createPiece(Color.NOCOLOR, Type.NO_PIECE);
 
         assertThat(blankPiece.getType()).isEqualTo(Piece.Type.NO_PIECE);
     }
@@ -203,7 +207,7 @@ public class PieceTest {
     @Test
     @DisplayName("아무 기물도 없는 Piece의 representation 테스트")
     public void noPiece_representation_test() {
-        Piece blankPiece = Piece.createBlank();
+        Piece blankPiece = Piece.createPiece(Color.NOCOLOR, Type.NO_PIECE);
 
         assertThat(blankPiece.getType().getWhiteRepresentation()).isEqualTo(Piece.Type.NO_PIECE.getWhiteRepresentation());
     }
