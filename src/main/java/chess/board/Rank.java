@@ -38,7 +38,7 @@ public class Rank {
 
     public ArrayList<Piece> getPiecesByColor(Color color) {
         return pieces.stream()
-                .filter(p -> !p.equals(Piece.createBlank())) // 빈 조각이 아닌 것만 필터링
+                .filter(p -> !p.equals(Piece.createPiece(Color.NOCOLOR, Type.NO_PIECE))) // 빈 조각이 아닌 것만 필터링
                 .filter(p -> p.getColor().equals(color))
                 .collect(Collectors.toCollection(ArrayList::new)); // 필터링된 결과를 ArrayList로 변환하여 저장
     }
