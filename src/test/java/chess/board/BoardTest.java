@@ -77,4 +77,20 @@ public class BoardTest {
         assertThat(board.findPieceByPosition(position)).isEqualTo(whitePawn);
         System.out.println(board.showBoard());
     }
+
+    @Test
+    @DisplayName("모든 흰색 기물들의 포인트 계산")
+    public void calculate_point() {
+        board.initialize();
+        double expectedResult = 1.0 * 8 // 폰 8개
+                + 2.5 * 2   // 나이트 2개
+                + 5.0 * 2   // 룩 2개
+                + 3.0 * 2   // 비숍 2개
+                + 9.0       // 퀸 1개
+                + 0.0;      // 킹 1개
+
+        assertThat(board.calculatePoint(Piece.Color.WHITE)).isEqualTo(expectedResult);
+        System.out.println(board.calculatePoint(Piece.Color.WHITE));
+    }
+
 }
