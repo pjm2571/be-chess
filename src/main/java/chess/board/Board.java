@@ -13,19 +13,23 @@ public class Board {
     public void initialize() {
         addWhitePieces();
 
-        addNoPieces();
+        addNoPieces(4);
 
         addBlackPieces();
+    }
+
+    public void initializeEmpty(){
+        addNoPieces(8);
     }
 
     public int getSize() {
         return ranks.size();
     }
 
-    private void addNoPieces() {
-        for (int row = 0; row < 4; row++) {
+    private void addNoPieces(int rowCount) {
+        for (int row = 0; row < rowCount; row++) {
             ArrayList<Piece> noPieces = new ArrayList<>();
-            for (int i = 0; i < 8; i++) {
+            for (int i = 0; i < BOARD_LENGTH; i++) {
                 noPieces.add(Piece.createBlank());
             }
             ranks.add(new Rank(noPieces));
@@ -104,5 +108,12 @@ public class Board {
             resultBuilder.append(ranks.get(i).getRankRepresentation());
         }
         return resultBuilder.toString();
+    }
+
+    public void move(String position, Piece piece) {
+        int pieceIndex = position.charAt(0) - 'a';
+        int rankIndex = position.charAt(1) - '1';
+        Rank findRank = ranks.get(rankIndex);
+        findRank.set(pieceIndex, piece);
     }
 }
