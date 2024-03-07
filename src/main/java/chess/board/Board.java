@@ -127,6 +127,25 @@ public class Board {
                 .mapToDouble(Piece::getDefaultPoint)
                 .sum();
 
-        return pointSum;
+        return pointSum - calculateDiffer(color);
+    }
+
+    private double calculateDiffer(Color color) {
+        double pointDiffer = 0;
+        for (int columnIndex = 0; columnIndex < BOARD_LENGTH; columnIndex++) {
+            ArrayList<Piece> pieces = new ArrayList<>();
+
+            for (Rank rank : ranks) {
+                pieces.add(rank.getPieceByPieceIndex(columnIndex));
+            }
+
+            int pawnCount = (int) pieces.stream()
+                    .filter(piece -> piece.getType().equals(Type.PAWN))
+                    .filter(piece -> piece.getColor().equals(color))
+                    .count();
+
+            pointDiffer += pawnCount >= 2 ? 0.5 * pawnCount : 0;
+        }
+        return pointDiffer;
     }
 }
