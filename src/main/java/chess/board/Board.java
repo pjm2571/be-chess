@@ -148,4 +148,12 @@ public class Board {
         }
         return pointDiffer;
     }
+
+    public ArrayList<Piece> getValidSortedPieces(Color color) {
+        return ranks.stream()
+                .map(rank -> rank.getPiecesByColor(color))
+                .flatMap(ArrayList::stream)
+                .sorted(Comparator.comparing(Piece::getDefaultPoint, Comparator.reverseOrder()))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
 }
