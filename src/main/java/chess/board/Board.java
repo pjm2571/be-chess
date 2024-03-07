@@ -3,8 +3,12 @@ package chess.board;
 import chess.pieces.Piece;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static chess.pieces.Piece.*;
 
 public class Board {
     private final static int BOARD_LENGTH = 8;
@@ -13,13 +17,13 @@ public class Board {
     public void initialize() {
         addWhitePieces();
 
-        addNoPieces(4);
+        addNoPieces(BOARD_LENGTH / 2);
 
         addBlackPieces();
     }
 
     public void initializeEmpty() {
-        addNoPieces(8);
+        addNoPieces(BOARD_LENGTH);
     }
 
     public int getSize() {
@@ -109,9 +113,20 @@ public class Board {
 
     public String showBoard() {
         StringBuilder resultBuilder = new StringBuilder();
+
         for (int i = ranks.size() - 1; i >= 0; i--) {
             resultBuilder.append(ranks.get(i).getRankRepresentation());
         }
         return resultBuilder.toString();
+    }
+
+    public double calculatePoint(Color color) {
+        double pointSum = ranks.stream()
+                .map(rank -> rank.getPiecesByColor(color))
+                .flatMap(ArrayList::stream)
+                .mapToDouble(Piece::getDefaultPoint)
+                .sum();
+
+        return pointSum;
     }
 }
