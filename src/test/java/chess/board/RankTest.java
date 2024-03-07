@@ -113,14 +113,14 @@ public class RankTest {
     }
 
     @Test
-    @DisplayName("Rank에 존재하는 blank가 아닌 Piece들의 집합 가져오기 성공 테스트")
+    @DisplayName("Rank에 존재하는 white Piece들의 집합 가져오기 성공 테스트")
     public void get_validPieces(){
         ArrayList<Piece> pieces = new ArrayList<>();
 
         pieces.add(Piece.createBlank());
         pieces.add(Piece.createWhite(PAWN));
-        pieces.add(Piece.createBlank());
-        pieces.add(Piece.createBlank());
+        pieces.add(Piece.createBlack(PAWN));
+        pieces.add(Piece.createBlack(PAWN));
         pieces.add(Piece.createWhite(PAWN));
         pieces.add(Piece.createBlank());
         pieces.add(Piece.createBlank());
@@ -132,7 +132,7 @@ public class RankTest {
         expectedResult.add(Piece.createWhite(PAWN));
         expectedResult.add(Piece.createWhite(PAWN));
 
-        assertThat(expectedResult).isEqualTo(rank.getPieces());
+        assertThat(expectedResult).isEqualTo(rank.getPiecesByColor(Piece.Color.WHITE));
     }
 
     @Test
@@ -155,7 +155,7 @@ public class RankTest {
         expectedResult.add(Piece.createWhite(PAWN));
         expectedResult.add(Piece.createWhite(PAWN));
 
-        assertThat(expectedResult).isNotEqualTo(rank.getPieces());
+        assertThat(expectedResult).isNotEqualTo(rank.getPiecesByColor(Piece.Color.WHITE));
     }
 
 
