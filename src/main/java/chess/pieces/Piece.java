@@ -3,30 +3,67 @@ package chess.pieces;
 import chess.colors.Colors;
 
 public final class Piece {
-    private final Symbol pieceSymbol;
 
-    private Piece(Symbol pieceSymbol) {
-        this.pieceSymbol = pieceSymbol;
+    private Color color;
+    private Type type;
+
+
+    private Piece(Color color, Type type) {
+        this.color = color;
+        this.type = type;
     }
 
-    public static Piece createPiece(Symbol pieceSymbol) {
-        return new Piece(pieceSymbol);
+    public enum Color {
+        WHITE, BLACK, NOCOLOR;
     }
 
-    public Colors getPieceColor() {
-        return pieceSymbol.getPieceColor();
+    public enum Type {
+        PAWN('p'),
+        ROOK('r'),
+        KNIGHT('n'),
+        BISHOP('b'),
+        QUEEN('q'),
+        KING('k'),
+        NO_PIECE('.');
+
+        private char representation;
+
+        Type(char representation) {
+            this.representation = representation;
+        }
+
+        public char getWhiteRepresentation() {
+            return representation;
+        }
+
+        public char getBlackRepresentation() {
+            return Character.toUpperCase(representation);
+        }
+
     }
 
-    public String getPieceShape() {
-        return pieceSymbol.getPieceShape();
+    /* 빈 칸을 생성 */
+    public static Piece createBlank() {
+        return new Piece(Color.NOCOLOR, Type.NO_PIECE);
     }
 
-    public boolean isWhite(){
-        return pieceSymbol.getPieceColor().equals(Colors.WHITE);
+    /* 흰색 폰을 생성 */
+    public static Piece createWhite(Type pieceType) {
+        return new Piece(Color.WHITE, pieceType);
     }
 
-    public boolean isBlack(){
-        return pieceSymbol.getPieceColor().equals(Colors.BLACK);
+    /* 검은색 폰을 생성 */
+    public static Piece createBlack(Type pieceType) {
+        return new Piece(Color.BLACK, pieceType);
     }
 
+    /* 피스의 색을 반환 */
+    public Color getColor() {
+        return color;
+    }
+
+    /* 피스의 타입을 반환 */
+    public Type getType(){
+        return type;
+    }
 }
