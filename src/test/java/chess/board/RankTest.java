@@ -87,7 +87,7 @@ public class RankTest {
     }
 
     @Test
-    @DisplayName("주어진 위치의 기물 조회 성공 테스트")
+    @DisplayName("주어진 위치의 기물 조회 실패 테스트")
     public void piece_find_fail_est() {
         ArrayList<Piece> pieces = new ArrayList<>();
 
@@ -111,5 +111,52 @@ public class RankTest {
         assertThat(Piece.createWhite(PAWN)).isNotEqualTo(rank.getPieceByPieceIndex(7));
         assertThat(Piece.createWhite(PAWN)).isNotEqualTo(rank.getPieceByPieceIndex(8));
     }
+
+    @Test
+    @DisplayName("Rank에 존재하는 blank가 아닌 Piece들의 집합 가져오기 성공 테스트")
+    public void get_validPieces(){
+        ArrayList<Piece> pieces = new ArrayList<>();
+
+        pieces.add(Piece.createBlank());
+        pieces.add(Piece.createWhite(PAWN));
+        pieces.add(Piece.createBlank());
+        pieces.add(Piece.createBlank());
+        pieces.add(Piece.createWhite(PAWN));
+        pieces.add(Piece.createBlank());
+        pieces.add(Piece.createBlank());
+        pieces.add(Piece.createBlank());
+
+        Rank rank = new Rank(pieces);
+
+        ArrayList<Piece> expectedResult = new ArrayList<>();
+        expectedResult.add(Piece.createWhite(PAWN));
+        expectedResult.add(Piece.createWhite(PAWN));
+
+        assertThat(expectedResult).isEqualTo(rank.getPieces());
+    }
+
+    @Test
+    @DisplayName("Rank에 존재하는 blank가 아닌 Piece들의 집합을 가져오기실패 테스트")
+    public void get_validPieces_fail(){
+        ArrayList<Piece> pieces = new ArrayList<>();
+
+        pieces.add(Piece.createBlank());
+        pieces.add(Piece.createBlank());
+        pieces.add(Piece.createBlank());
+        pieces.add(Piece.createBlank());
+        pieces.add(Piece.createWhite(PAWN));
+        pieces.add(Piece.createBlank());
+        pieces.add(Piece.createBlank());
+        pieces.add(Piece.createBlank());
+
+        Rank rank = new Rank(pieces);
+
+        ArrayList<Piece> expectedResult = new ArrayList<>();
+        expectedResult.add(Piece.createWhite(PAWN));
+        expectedResult.add(Piece.createWhite(PAWN));
+
+        assertThat(expectedResult).isNotEqualTo(rank.getPieces());
+    }
+
 
 }
