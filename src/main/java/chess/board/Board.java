@@ -18,7 +18,7 @@ public class Board {
         addBlackPieces();
     }
 
-    public void initializeEmpty(){
+    public void initializeEmpty() {
         addNoPieces(8);
     }
 
@@ -95,10 +95,15 @@ public class Board {
     }
 
     public Piece findPieceByPosition(String position) {
-        int pieceIndex = position.charAt(0) - 'a';
-        int rankIndex = position.charAt(1) - '1';
-        Rank findRank = ranks.get(rankIndex);
-        return findRank.getPieceByPieceIndex(pieceIndex);
+        Position piecePosition = new Position(position);
+        Rank findRank = ranks.get(piecePosition.getRankIndex());
+        return findRank.getPieceByPieceIndex(piecePosition.getPieceIndex());
+    }
+
+    public void move(String position, Piece piece) {
+        Position piecePosition = new Position(position);
+        Rank findRank = ranks.get(piecePosition.getRankIndex());
+        findRank.set(piecePosition.getPieceIndex(), piece);
     }
 
 
@@ -108,12 +113,5 @@ public class Board {
             resultBuilder.append(ranks.get(i).getRankRepresentation());
         }
         return resultBuilder.toString();
-    }
-
-    public void move(String position, Piece piece) {
-        int pieceIndex = position.charAt(0) - 'a';
-        int rankIndex = position.charAt(1) - '1';
-        Rank findRank = ranks.get(rankIndex);
-        findRank.set(pieceIndex, piece);
     }
 }
