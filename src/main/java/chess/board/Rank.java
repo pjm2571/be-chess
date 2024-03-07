@@ -29,4 +29,8 @@ public class Rank {
         return pieces.get(pieceIndex);
     }
 
+    public void set(int pieceIndex, Piece piece) {
+        pieces.set(pieceIndex, piece);
+    }
+
 }
