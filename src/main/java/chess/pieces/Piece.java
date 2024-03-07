@@ -1,7 +1,5 @@
 package chess.pieces;
 
-import chess.colors.Colors;
-
 public final class Piece {
 
     private Color color;
@@ -73,5 +71,4 @@ public final class Piece {
         }
         return type.getWhiteRepresentation();
     }
-    
 }
