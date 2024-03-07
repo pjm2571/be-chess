@@ -2,112 +2,73 @@ package chess.board;
 
 import chess.pieces.Piece;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
+import java.util.*;
+import java.util.stream.*;
 
 import static chess.pieces.Piece.*;
 
 public class Board {
     private final static int BOARD_LENGTH = 8;
+    private final static Type[] PAWN_TYPES = {Type.PAWN, Type.PAWN, Type.PAWN, Type.PAWN, Type.PAWN, Type.PAWN, Type.PAWN, Type.PAWN};
+    private final static Type[] PIECE_TYPES = {Type.ROOK, Type.KNIGHT, Type.BISHOP, Type.QUEEN, Type.KING, Type.BISHOP, Type.KNIGHT, Type.ROOK};
+    private final static Type[] BLANK_TYPES = {Type.NO_PIECE, Type.NO_PIECE, Type.NO_PIECE, Type.NO_PIECE, Type.NO_PIECE, Type.NO_PIECE, Type.NO_PIECE, Type.NO_PIECE};
+
     private final List<Rank> ranks = new ArrayList<>();
 
-    public void initialize() {
-        addWhitePieces();
-
-        addNoPieces(BOARD_LENGTH / 2);
-
-        addBlackPieces();
-    }
-
     public void initializeEmpty() {
-        addNoPieces(BOARD_LENGTH);
+        addBlank(BOARD_LENGTH);
     }
 
-    public int getSize() {
-        return ranks.size();
+    public void initialize() {
+        addRank(PIECE_TYPES, Color.WHITE);
+        addRank(PAWN_TYPES, Color.WHITE);
+
+        addBlank(BOARD_LENGTH / 2);
+
+        addRank(PAWN_TYPES, Color.BLACK);
+        addRank(PIECE_TYPES, Color.BLACK);
     }
 
-    private void addNoPieces(int rowCount) {
-        for (int row = 0; row < rowCount; row++) {
-            ArrayList<Piece> noPieces = new ArrayList<>();
-            for (int i = 0; i < BOARD_LENGTH; i++) {
-                noPieces.add(Piece.createBlank());
-            }
-            ranks.add(new Rank(noPieces));
+    private void addBlank(int blankRankAmount) {
+        for (int rankIndex = 0; rankIndex < blankRankAmount; rankIndex++) {
+            addRank(BLANK_TYPES, Color.NOCOLOR);
         }
     }
 
-    private void addBlackPieces() {
-        addBlackPawns();
-
-        ArrayList<Piece> blackPieces = new ArrayList<>();
-
-        blackPieces.add(Piece.createBlack(Piece.Type.ROOK));
-        blackPieces.add(Piece.createBlack(Piece.Type.KNIGHT));
-        blackPieces.add(Piece.createBlack(Piece.Type.BISHOP));
-        blackPieces.add(Piece.createBlack(Piece.Type.QUEEN));
-        blackPieces.add(Piece.createBlack(Piece.Type.KING));
-        blackPieces.add(Piece.createBlack(Piece.Type.BISHOP));
-        blackPieces.add(Piece.createBlack(Piece.Type.KNIGHT));
-        blackPieces.add(Piece.createBlack(Piece.Type.ROOK));
-        ranks.add(new Rank(blackPieces));
-
+    private void addRank(Type[] types, Color color) {
+        ranks.add(new Rank(getPieces(types, color)));
     }
 
-    private void addWhitePieces() {
-
-        ArrayList<Piece> whitePieces = new ArrayList<>();
-
-        whitePieces.add(Piece.createWhite(Piece.Type.ROOK));
-        whitePieces.add(Piece.createWhite(Piece.Type.KNIGHT));
-        whitePieces.add(Piece.createWhite(Piece.Type.BISHOP));
-        whitePieces.add(Piece.createWhite(Piece.Type.QUEEN));
-        whitePieces.add(Piece.createWhite(Piece.Type.KING));
-        whitePieces.add(Piece.createWhite(Piece.Type.BISHOP));
-        whitePieces.add(Piece.createWhite(Piece.Type.KNIGHT));
-        whitePieces.add(Piece.createWhite(Piece.Type.ROOK));
-
-        ranks.add(new Rank(whitePieces));
-
-        addWhitePawns();
-
-    }
-
-    private void addBlackPawns() {
-        ArrayList<Piece> blackPawns = new ArrayList<>();
-
-        addPawns(blackPawns, Piece.createBlack(Piece.Type.PAWN));
-
-        ranks.add(new Rank(blackPawns));
-    }
-
-    private void addWhitePawns() {
-        ArrayList<Piece> whitePieces = new ArrayList<>();
-
-        addPawns(whitePieces, Piece.createWhite(Piece.Type.PAWN));
-
-        ranks.add(new Rank(whitePieces));
-    }
-
-    private void addPawns(List<Piece> pawns, Piece pawn) {
-        for (int i = 0; i < BOARD_LENGTH; i++) {
-            pawns.add(pawn);
+    private ArrayList<Piece> getPieces(Type[] types, Color color) {
+        ArrayList<Piece> pieces = new ArrayList<>();
+        for (int pieceIndex = 0; pieceIndex < BOARD_LENGTH; pieceIndex++) {
+            pieces.add(Piece.createPiece(color, types[pieceIndex]));
         }
+        return pieces;
+    }
+
+    private Rank findRankByPosition(Position position) {
+        return ranks.get(position.getRankIndex());
+    }
+
+    private Piece findPieceByPieceIndex(Rank targetRank, int pieceIndex) {
+        return targetRank.getPieceByPieceIndex(pieceIndex);
     }
 
     public Piece findPieceByPosition(String position) {
         Position piecePosition = new Position(position);
-        Rank findRank = ranks.get(piecePosition.getRankIndex());
-        return findRank.getPieceByPieceIndex(piecePosition.getPieceIndex());
+
+        Rank targetRank = findRankByPosition(piecePosition);
+
+        return findPieceByPieceIndex(targetRank, piecePosition.getPieceIndex());
     }
 
     public void move(String position, Piece piece) {
         Position piecePosition = new Position(position);
-        Rank findRank = ranks.get(piecePosition.getRankIndex());
-        findRank.set(piecePosition.getPieceIndex(), piece);
+
+        Rank targetRank = findRankByPosition(piecePosition);
+
+        targetRank.set(piecePosition.getPieceIndex(), piece);
     }
 
 
@@ -117,6 +78,7 @@ public class Board {
         for (int i = ranks.size() - 1; i >= 0; i--) {
             resultBuilder.append(ranks.get(i).getRankRepresentation());
         }
+
         return resultBuilder.toString();
     }
 
@@ -133,23 +95,26 @@ public class Board {
     private double calculateDiffer(Color color) {
         double pointDiffer = 0;
         for (int columnIndex = 0; columnIndex < BOARD_LENGTH; columnIndex++) {
-            ArrayList<Piece> pieces = new ArrayList<>();
-
-            for (Rank rank : ranks) {
-                pieces.add(rank.getPieceByPieceIndex(columnIndex));
-            }
-
-            int pawnCount = (int) pieces.stream()
-                    .filter(piece -> piece.getType().equals(Type.PAWN))
-                    .filter(piece -> piece.getColor().equals(color))
-                    .count();
-
+            int pawnCount = countPawnsInColumn(color, columnIndex);
             pointDiffer += pawnCount >= 2 ? 0.5 * pawnCount : 0;
         }
         return pointDiffer;
     }
 
-    public ArrayList<Piece> getValidSortedPieces(Color color) {
+    private int countPawnsInColumn(Color color, int columnIndex) {
+        ArrayList<Piece> pieces = new ArrayList<>();
+
+        for (Rank rank : ranks) {
+            pieces.add(findPieceByPieceIndex(rank, columnIndex));
+        }
+
+        return (int) pieces.stream()
+                .filter(piece -> piece.getType().equals(Type.PAWN))
+                .filter(piece -> piece.getColor().equals(color))
+                .count();
+    }
+
+    public ArrayList<Piece> getPiecesInAscendingPoint(Color color) {
         return ranks.stream()
                 .map(rank -> rank.getPiecesByColor(color))
                 .flatMap(ArrayList::stream)
