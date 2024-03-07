@@ -65,4 +65,51 @@ public class RankTest {
         assertThat(rank.findPieceCount(pawn)).isEqualTo(2);
     }
 
+    @Test
+    @DisplayName("주어진 위치의 기물 조회 성공 테스트")
+    public void piece_find_success_test() {
+        ArrayList<Piece> pieces = new ArrayList<>();
+
+        pieces.add(Piece.createBlank());
+        pieces.add(Piece.createWhite(PAWN));
+        pieces.add(Piece.createBlank());
+        pieces.add(Piece.createBlank());
+        pieces.add(Piece.createWhite(PAWN));
+        pieces.add(Piece.createBlank());
+        pieces.add(Piece.createBlank());
+        pieces.add(Piece.createBlank());
+
+        Rank rank = new Rank(pieces);
+
+        assertThat(Piece.createWhite(PAWN)).isEqualTo(rank.getPieceByPieceIndex(2));
+
+        assertThat(Piece.createWhite(PAWN)).isEqualTo(rank.getPieceByPieceIndex(5));
+    }
+
+    @Test
+    @DisplayName("주어진 위치의 기물 조회 성공 테스트")
+    public void piece_find_fail_est() {
+        ArrayList<Piece> pieces = new ArrayList<>();
+
+        pieces.add(Piece.createBlank());
+        pieces.add(Piece.createWhite(PAWN));
+        pieces.add(Piece.createBlank());
+        pieces.add(Piece.createBlank());
+        pieces.add(Piece.createWhite(PAWN));
+        pieces.add(Piece.createBlank());
+        pieces.add(Piece.createBlank());
+        pieces.add(Piece.createBlank());
+
+        Rank rank = new Rank(pieces);
+
+        assertThat(Piece.createWhite(PAWN)).isNotEqualTo(rank.getPieceByPieceIndex(1));
+
+        assertThat(Piece.createWhite(PAWN)).isNotEqualTo(rank.getPieceByPieceIndex(3));
+        assertThat(Piece.createWhite(PAWN)).isNotEqualTo(rank.getPieceByPieceIndex(4));
+
+        assertThat(Piece.createWhite(PAWN)).isNotEqualTo(rank.getPieceByPieceIndex(6));
+        assertThat(Piece.createWhite(PAWN)).isNotEqualTo(rank.getPieceByPieceIndex(7));
+        assertThat(Piece.createWhite(PAWN)).isNotEqualTo(rank.getPieceByPieceIndex(8));
+    }
+
 }
