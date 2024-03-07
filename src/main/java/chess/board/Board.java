@@ -11,9 +11,11 @@ public class Board {
     private final List<Rank> ranks = new ArrayList<>();
 
     public void initialize() {
-        addBlackPieces();
-        addNoPieces();
         addWhitePieces();
+
+        addNoPieces();
+
+        addBlackPieces();
     }
 
     public int getSize() {
@@ -31,6 +33,8 @@ public class Board {
     }
 
     private void addBlackPieces() {
+        addBlackPawns();
+
         ArrayList<Piece> blackPieces = new ArrayList<>();
 
         blackPieces.add(Piece.createBlack(Piece.Type.ROOK));
@@ -43,11 +47,9 @@ public class Board {
         blackPieces.add(Piece.createBlack(Piece.Type.ROOK));
         ranks.add(new Rank(blackPieces));
 
-        addBlackPawns();
     }
 
     private void addWhitePieces() {
-        addWhitePawns();
 
         ArrayList<Piece> whitePieces = new ArrayList<>();
 
@@ -61,6 +63,8 @@ public class Board {
         whitePieces.add(Piece.createWhite(Piece.Type.ROOK));
 
         ranks.add(new Rank(whitePieces));
+
+        addWhitePawns();
 
     }
 
@@ -86,10 +90,19 @@ public class Board {
         }
     }
 
+    public Piece findPieceByPosition(String position) {
+        int pieceIndex = position.charAt(0) - 'a';
+        int rankIndex = position.charAt(1) - '1';
+        Rank findRank = ranks.get(rankIndex);
+        return findRank.getPieceByPieceIndex(pieceIndex);
+    }
+
 
     public String showBoard() {
-        return ranks.stream()
-                .map(Rank::getRankRepresentation)
-                .collect(Collectors.joining());
+        StringBuilder resultBuilder = new StringBuilder();
+        for (int i = ranks.size() - 1; i >= 0; i--) {
+            resultBuilder.append(ranks.get(i).getRankRepresentation());
+        }
+        return resultBuilder.toString();
     }
 }
