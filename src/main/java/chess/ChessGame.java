@@ -1,3 +1,5 @@
+package chess;
+
 import chess.Board;
 
 import java.util.Scanner;
