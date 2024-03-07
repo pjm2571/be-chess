@@ -1,6 +1,5 @@
-package chess;
+package chess.board;
 
-import chess.pieces.Piece;
 import org.junit.jupiter.api.*;
 import utils.StringUtils;
 
