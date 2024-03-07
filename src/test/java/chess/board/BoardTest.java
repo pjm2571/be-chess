@@ -40,27 +40,41 @@ public class BoardTest {
                         blankRank +
                         StringUtils.appendNewLine("pppppppp") +
                         StringUtils.appendNewLine("rnbqkbnr"));
-
+        System.out.println(board.showBoard());
     }
 
     @Test
     @DisplayName("좌표를 입력받아 좌표에 해당하는 기물을 찾는 테스트")
-    public void find_piece_at_board_test(){
+    public void find_piece_at_board_test() {
         board.initialize();
 
         assertThat(board.findPieceByPosition("a8")).isEqualTo(Piece.createBlack(ROOK));
 
         assertThat(board.findPieceByPosition("h1")).isEqualTo(Piece.createWhite(ROOK));
+        System.out.println(board.showBoard());
     }
 
     @Test
     @DisplayName("좌표를 입력받아 좌표에 해당하는 기물을 find 오류 테스트")
-    public void find_piece_at_board_error_test(){
+    public void find_piece_at_board_error_test() {
         board.initialize();
 
         assertThat(board.findPieceByPosition("a8")).isNotEqualTo(Piece.createBlank());
 
         assertThat(board.findPieceByPosition("h1")).isNotEqualTo(Piece.createBlank());
+        System.out.println(board.showBoard());
+    }
 
+    @Test
+    @DisplayName("빈 보드에서 A8 위치에 흰색 폰을 추가하는 테스트")
+    public void create_emptyBoard_set_whitePawn_to_A8() {
+        board.initializeEmpty();
+
+        String position = "a8";
+        Piece whitePawn = Piece.createWhite(PAWN);
+        board.move(position, whitePawn);
+
+        assertThat(board.findPieceByPosition(position)).isEqualTo(whitePawn);
+        System.out.println(board.showBoard());
     }
 }
