@@ -1,5 +1,6 @@
 package chess;
 
+import chess.pieces.Piece;
 import org.junit.jupiter.api.*;
 import utils.StringUtils;
 
@@ -14,11 +15,11 @@ public class BoardTest {
     }
 
     @Test
-    @DisplayName("보드에 위치한 Piece들의 정상 개수 테스트")
+    @DisplayName("보드에 위치한 Piece들의 개수가 정상적으로 64개가 되는 지 테스트")
     public void piece_size_test() {
         board.initialize();
 
-        assertThat(board.getSize()).isEqualTo(32);
+        assertThat(board.getSize()).isEqualTo(64);
     }
 
     @Test
@@ -26,15 +27,18 @@ public class BoardTest {
     public void showBoard_test() {
         board.initialize();
 
-        String blankRank = "........" + StringUtils.NEWLINE;
-        assertThat(board.showBoard()).isEqualTo("♜♞♝♛♚♝♞♜" + StringUtils.NEWLINE +
-                "♟♟♟♟♟♟♟♟" + StringUtils.NEWLINE +
-                blankRank +
-                blankRank +
-                blankRank +
-                blankRank +
-                "♙♙♙♙♙♙♙♙" + StringUtils.NEWLINE +
-                "♖♘♗♕♔♗♘♖");
+        String blankRank = StringUtils.appendNewLine("........");
+
+        assertThat(board.showBoard()).isEqualTo(
+                StringUtils.appendNewLine("RNBQKBNR") +
+                        StringUtils.appendNewLine("PPPPPPPP") +
+                        blankRank +
+                        blankRank +
+                        blankRank +
+                        blankRank +
+                        StringUtils.appendNewLine("pppppppp") +
+                        StringUtils.appendNewLine("rnbqkbnr"));
+
     }
 
 }
