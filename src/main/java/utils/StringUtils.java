@@ -6,7 +6,7 @@ public class StringUtils {
 
     public static final String NEWLINE = System.lineSeparator();
 
-    public static String appendNewLine() {
-        return NEWLINE;
+    public static String appendNewLine(String inputLine) {
+        return inputLine + NEWLINE;
     }
 }
