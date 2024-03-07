@@ -1,8 +1,6 @@
 package chess;
 
 import chess.pieces.Piece;
-import chess.pieces.Symbol;
-import utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +8,7 @@ import java.util.stream.Collectors;
 
 public class Board {
     private final static int BOARD_LENGTH = 8;
-    private final List<Rank> pieces = new ArrayList<>();
+    private final List<Rank> ranks = new ArrayList<>();
 
     public void initialize() {
         addBlackPieces();
@@ -19,7 +17,7 @@ public class Board {
     }
 
     public int getSize() {
-        return pieces.size();
+        return ranks.size();
     }
 
     private void addNoPieces() {
@@ -28,7 +26,7 @@ public class Board {
             for (int i = 0; i < 8; i++) {
                 noPieces.add(Piece.createBlank());
             }
-            pieces.add(new Rank(noPieces));
+            ranks.add(new Rank(noPieces));
         }
     }
 
@@ -43,7 +41,7 @@ public class Board {
         blackPieces.add(Piece.createBlack(Piece.Type.BISHOP));
         blackPieces.add(Piece.createBlack(Piece.Type.KNIGHT));
         blackPieces.add(Piece.createBlack(Piece.Type.ROOK));
-        pieces.add(new Rank(blackPieces));
+        ranks.add(new Rank(blackPieces));
 
         addBlackPawns();
     }
@@ -62,7 +60,7 @@ public class Board {
         whitePieces.add(Piece.createWhite(Piece.Type.KNIGHT));
         whitePieces.add(Piece.createWhite(Piece.Type.ROOK));
 
-        pieces.add(new Rank(whitePieces));
+        ranks.add(new Rank(whitePieces));
 
     }
 
@@ -71,7 +69,7 @@ public class Board {
 
         addPawns(blackPawns, Piece.createBlack(Piece.Type.PAWN));
 
-        pieces.add(new Rank(blackPawns));
+        ranks.add(new Rank(blackPawns));
     }
 
     private void addWhitePawns() {
@@ -79,7 +77,7 @@ public class Board {
 
         addPawns(whitePieces, Piece.createWhite(Piece.Type.PAWN));
 
-        pieces.add(new Rank(whitePieces));
+        ranks.add(new Rank(whitePieces));
     }
 
     private void addPawns(List<Piece> pawns, Piece pawn) {
@@ -90,6 +88,8 @@ public class Board {
 
 
     public String showBoard() {
-        return "";
+        return ranks.stream()
+                .map(Rank::getRankRepresentation)
+                .collect(Collectors.joining());
     }
 }
