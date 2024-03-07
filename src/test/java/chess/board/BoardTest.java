@@ -79,7 +79,7 @@ public class BoardTest {
     }
 
     @Test
-    @DisplayName("모든 흰색 기물들의 포인트 계산")
+    @DisplayName("모든 흰색 기물들이 가로로 포인트 계산")
     public void calculate_point() {
         board.initialize();
         double expectedResult = 1.0 * 8 // 폰 8개
@@ -91,6 +91,51 @@ public class BoardTest {
 
         assertThat(board.calculatePoint(Piece.Color.WHITE)).isEqualTo(expectedResult);
         System.out.println(board.calculatePoint(Piece.Color.WHITE));
+    }
+
+    @Test
+    @DisplayName("폰이 세로로 있을 경우의 포인트 계산")
+    public void calculate_point_pawn_within_column() {
+        board.initializeEmpty();
+
+        //.KR.....  8
+        //P.PB....  7
+        //.P..Q...  6
+        //........  5
+        //.....nq.  4
+        //.....p.p  3
+        //.....pp.  2
+        //....rk.. 1
+        //abcdefgh
+
+        board.move("b8", Piece.createBlack(KING));
+        board.move("c8", Piece.createBlack(ROOK));
+
+        board.move("a7", Piece.createBlack(PAWN));
+        board.move("c7", Piece.createBlack(PAWN));
+        board.move("d7", Piece.createBlack(BISHOP));
+
+        board.move("b6", Piece.createBlack(PAWN));
+        board.move("e6", Piece.createBlack(QUEEN));
+
+        assertThat(board.calculatePoint(Piece.Color.BLACK)).isEqualTo(20.0);
+
+        board.move("f4", Piece.createWhite(KNIGHT));
+        board.move("g4", Piece.createWhite(QUEEN));
+
+        board.move("f3", Piece.createWhite(PAWN));
+        board.move("h3", Piece.createWhite(PAWN));
+
+        board.move("f2", Piece.createWhite(PAWN));
+        board.move("g2", Piece.createWhite(PAWN));
+
+        board.move("e1", Piece.createWhite(ROOK));
+        board.move("f1", Piece.createWhite(KING));
+
+        System.out.println(board.showBoard());
+
+        assertThat(board.calculatePoint(Piece.Color.WHITE)).isEqualTo(19.5);
+
     }
 
 }
