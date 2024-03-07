@@ -1,7 +1,5 @@
 package chess.pieces;
 
-import chess.colors.Colors;
-
 import java.util.Objects;
 
 public final class Piece {
@@ -49,27 +47,14 @@ public final class Piece {
         }
     }
 
-    /* 빈 칸을 생성 */
-    public static Piece createBlank() {
-        return new Piece(Color.NOCOLOR, Type.NO_PIECE);
+    public static Piece createPiece(Color color, Type type) {
+        return new Piece(color, type);
     }
 
-    /* 흰색 폰을 생성 */
-    public static Piece createWhite(Type pieceType) {
-        return new Piece(Color.WHITE, pieceType);
-    }
-
-    /* 검은색 폰을 생성 */
-    public static Piece createBlack(Type pieceType) {
-        return new Piece(Color.BLACK, pieceType);
-    }
-
-    /* 피스의 색을 반환 */
     public Color getColor() {
         return color;
     }
 
-    /* 피스의 타입을 반환 */
     public Type getType() {
         return type;
     }
@@ -96,7 +81,7 @@ public final class Piece {
         return Objects.hash(color, type);
     }
 
-    public double getDefaultPoint(){
+    public double getDefaultPoint() {
         return type.getDefaultPoint();
     }
 
