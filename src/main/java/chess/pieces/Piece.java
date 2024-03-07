@@ -2,6 +2,8 @@ package chess.pieces;
 
 import chess.colors.Colors;
 
+import java.util.Objects;
+
 public final class Piece {
 
     private Color color;
@@ -68,10 +70,25 @@ public final class Piece {
     }
 
     public char getRepresentation() {
-        if (color.equals(Color.BLACK)){
+        if (color.equals(Color.BLACK)) {
             return type.getBlackRepresentation();
         }
         return type.getWhiteRepresentation();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof Piece piece))
+            return false;
+        return color == piece.color &&
+                type == piece.type;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(color, type);
     }
 
 }
