@@ -208,4 +208,18 @@ public class BoardTest {
         assertThat(whitePieces).isNotEqualTo(expectedResult);
     }
 
+    @Test
+    @DisplayName("b2 기물을 b3 위치로 옮기는 테스트")
+    public void move_b2_to_b3(){
+        board.initialize();
+
+        String sourcePosition = "b2";
+        String targetPosition = "b3";
+
+        board.movePiece(sourcePosition, targetPosition);
+
+        assertThat(Piece.createPiece(Color.NOCOLOR, Type.NO_PIECE)).isEqualTo(board.findPieceByPosition(sourcePosition));
+        assertThat(Piece.createPiece(Color.WHITE, Type.PAWN)).isEqualTo(board.findPieceByPosition(targetPosition));
+    }
+
 }
