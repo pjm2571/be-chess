@@ -14,7 +14,7 @@
  
 # 🖥️ 실행
 
-```src/main/java/chess.ChessGame.java```를 통해 프로그램이 실행
+```src/main/java/chess.ChessMain.java```를 통해 프로그램이 실행
 
 ## 1) 체스 게임 init
 ```

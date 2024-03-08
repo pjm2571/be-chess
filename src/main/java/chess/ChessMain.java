@@ -4,7 +4,7 @@ import chess.board.Board;
 
 import java.util.Scanner;
 
-public class ChessGame {
+public class ChessMain {
     private final static String MOVE_COMMAND = "move";
     private final static String START_COMMAND = "start";
     private final static String END_COMMAND = "end";
