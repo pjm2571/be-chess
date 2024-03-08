@@ -51,7 +51,7 @@ public class Board {
         return ranks.get(position.getRankIndex());
     }
 
-    private Piece findPieceByPieceIndex(Rank targetRank, int pieceIndex) {
+    public Piece findPieceByPieceIndex(Rank targetRank, int pieceIndex) {
         return targetRank.getPieceByPieceIndex(pieceIndex);
     }
 
@@ -70,55 +70,8 @@ public class Board {
 
         targetRank.set(piecePosition.getPieceIndex(), piece);
     }
-
-    public void movePiece(String sourcePosition, String targetPosition) {
-        Piece piece = findPieceByPosition(sourcePosition);
-
-        setPiece(sourcePosition, Piece.createPiece(Color.NOCOLOR, Type.NO_PIECE));
-        setPiece(targetPosition, piece);
-    }
-
     public List<Rank> getRanks(){
         return ranks;
     }
 
-    public double calculatePoint(Color color) {
-        double pointSum = ranks.stream()
-                .map(rank -> rank.getPiecesByColor(color))
-                .flatMap(ArrayList::stream)
-                .mapToDouble(Piece::getDefaultPoint)
-                .sum();
-
-        return pointSum - calculateDiffer(color);
-    }
-
-    private double calculateDiffer(Color color) {
-        double pointDiffer = 0;
-        for (int columnIndex = 0; columnIndex < BOARD_LENGTH; columnIndex++) {
-            int pawnCount = countPawnsInColumn(color, columnIndex);
-            pointDiffer += pawnCount >= 2 ? 0.5 * pawnCount : 0;
-        }
-        return pointDiffer;
-    }
-
-    private int countPawnsInColumn(Color color, int columnIndex) {
-        ArrayList<Piece> pieces = new ArrayList<>();
-
-        for (Rank rank : ranks) {
-            pieces.add(findPieceByPieceIndex(rank, columnIndex));
-        }
-
-        return (int) pieces.stream()
-                .filter(piece -> piece.getType().equals(Type.PAWN))
-                .filter(piece -> piece.getColor().equals(color))
-                .count();
-    }
-
-    public ArrayList<Piece> getPiecesInAscendingPoint(Color color) {
-        return ranks.stream()
-                .map(rank -> rank.getPiecesByColor(color))
-                .flatMap(ArrayList::stream)
-                .sorted(Comparator.comparing(Piece::getDefaultPoint, Comparator.reverseOrder()))
-                .collect(Collectors.toCollection(ArrayList::new));
-    }
 }

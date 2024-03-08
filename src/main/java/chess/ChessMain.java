@@ -19,6 +19,7 @@ public class ChessMain {
             if (sc.nextLine().equals(START_COMMAND)) {
                 Board board = new Board();
                 ChessView chessView = new ChessView(board);
+                ChessGame chessGame = new ChessGame(board);
 
                 board.initialize();
 
@@ -34,7 +35,7 @@ public class ChessMain {
                     }
 
                     if (commands[0].startsWith(MOVE_COMMAND)) {
-                        board.movePiece(commands[1], commands[2]);
+                        chessGame.movePiece(commands[1], commands[2]);
                     }
 
                 }

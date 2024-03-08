@@ -1,5 +1,6 @@
 package chess.board;
 
+import chess.ChessGame;
 import chess.ChessView;
 import chess.pieces.Piece;
 import org.junit.jupiter.api.*;
@@ -83,6 +84,8 @@ public class BoardTest {
     @DisplayName("모든 흰색 기물들이 가로로 포인트 계산")
     public void calculate_point() {
         board.initialize();
+        ChessGame chessGame = new ChessGame(board);
+
         double expectedResult = 1.0 * 8 // 폰 8개
                 + 2.5 * 2   // 나이트 2개
                 + 5.0 * 2   // 룩 2개
@@ -90,8 +93,8 @@ public class BoardTest {
                 + 9.0       // 퀸 1개
                 + 0.0;      // 킹 1개
 
-        assertThat(board.calculatePoint(Piece.Color.WHITE)).isEqualTo(expectedResult);
-        System.out.println(board.calculatePoint(Piece.Color.WHITE));
+        assertThat(chessGame.calculatePoint(Piece.Color.WHITE)).isEqualTo(expectedResult);
+        System.out.println(chessGame.calculatePoint(Piece.Color.WHITE));
     }
 
     @Test
@@ -99,6 +102,7 @@ public class BoardTest {
     public void calculate_point_pawn_within_column() {
         board.initializeEmpty();
         ChessView chessView = new ChessView(board);
+        ChessGame chessGame = new ChessGame(board);
 
         //.KR.....  8
         //P.PB....  7
@@ -120,7 +124,7 @@ public class BoardTest {
         board.setPiece("b6", Piece.createPiece(Piece.Color.BLACK, Piece.Type.PAWN));
         board.setPiece("e6", Piece.createPiece(Piece.Color.BLACK, Piece.Type.QUEEN));
 
-        assertThat(board.calculatePoint(Piece.Color.BLACK)).isEqualTo(20.0);
+        assertThat(chessGame.calculatePoint(Piece.Color.BLACK)).isEqualTo(20.0);
 
         board.setPiece("f4", Piece.createPiece(Piece.Color.WHITE, Piece.Type.KNIGHT));
         board.setPiece("g4", Piece.createPiece(Piece.Color.WHITE, Piece.Type.QUEEN));
@@ -137,7 +141,7 @@ public class BoardTest {
 
         System.out.println(chessView.showBoard());
 
-        assertThat(board.calculatePoint(Piece.Color.WHITE)).isEqualTo(19.5);
+        assertThat(chessGame.calculatePoint(Piece.Color.WHITE)).isEqualTo(19.5);
 
     }
 
@@ -146,82 +150,25 @@ public class BoardTest {
     public void calculate_point_all_pawn_in_one_column() {
         double expectedPoint = 0.5 * 8;
         board.initializeEmpty();
+        ChessGame chessGame = new ChessGame(board);
 
         for (int row = 8; row >= 1; row--) {
             board.setPiece("a" + row, Piece.createPiece(Piece.Color.WHITE, Piece.Type.PAWN));
         }
 
-        assertThat(board.calculatePoint(Piece.Color.WHITE)).isEqualTo(expectedPoint);
-    }
-
-    @Test
-    @DisplayName("흰색 기물들의 점수 내림차순 정렬 테스트")
-    public void board_descending_sort_test() {
-        board.initialize();
-
-        ArrayList<Piece> expectedResult = new ArrayList<>();
-        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.QUEEN));
-
-        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.ROOK));
-        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.ROOK));
-
-        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.BISHOP));
-        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.BISHOP));
-
-        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.KNIGHT));
-        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.KNIGHT));
-
-        for (int i = 0; i < 8; i++) {
-            expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.PAWN));
-        }
-
-        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.KING));
-
-
-        ArrayList<Piece> whitePieces = board.getPiecesInAscendingPoint(Piece.Color.WHITE);
-
-        assertThat(whitePieces).isEqualTo(expectedResult);
-    }
-
-    @Test
-    @DisplayName("흰색 기물들의 점수 오름차순 정렬 테스트")
-    public void board_ascending_sort_test() {
-        board.initialize();
-
-        ArrayList<Piece> expectedResult = new ArrayList<>();
-        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.QUEEN));
-
-        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.ROOK));
-        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.ROOK));
-
-        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.BISHOP));
-        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.BISHOP));
-
-        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.KNIGHT));
-        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.KNIGHT));
-
-        for (int i = 0; i < 8; i++) {
-            expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.PAWN));
-        }
-
-        expectedResult.add(Piece.createPiece(Piece.Color.WHITE, Piece.Type.KING));
-
-        ArrayList<Piece> whitePieces = board.getPiecesInAscendingPoint(Piece.Color.WHITE);
-
-        Collections.reverse(expectedResult);
-
-        assertThat(whitePieces).isNotEqualTo(expectedResult);
+        assertThat(chessGame.calculatePoint(Piece.Color.WHITE)).isEqualTo(expectedPoint);
     }
 
     @Test
     @DisplayName("b2 기물을 b3 위치로 옮기는 테스트")
-    public void move_b2_to_b3(){
+    public void move_b2_to_b3() {
         board.initialize();
+        ChessGame chessGame = new ChessGame(board);
 
         String sourcePosition = "b2";
         String targetPosition = "b3";
 
-        board.movePiece(sourcePosition, targetPosition);
+        chessGame.movePiece(sourcePosition, targetPosition);
 
         assertThat(Piece.createPiece(Color.NOCOLOR, Type.NO_PIECE)).isEqualTo(board.findPieceByPosition(sourcePosition));
         assertThat(Piece.createPiece(Color.WHITE, Type.PAWN)).isEqualTo(board.findPieceByPosition(targetPosition));
