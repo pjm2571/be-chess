@@ -71,6 +71,13 @@ public class Board {
         targetRank.set(piecePosition.getPieceIndex(), piece);
     }
 
+    public void movePiece(String sourcePosition, String targetPosition) {
+        Piece piece = findPieceByPosition(sourcePosition);
+
+        setPiece(sourcePosition, Piece.createPiece(Color.NOCOLOR, Type.NO_PIECE));
+        setPiece(targetPosition, piece);
+    }
+
 
     public String showBoard() {
         StringBuilder resultBuilder = new StringBuilder();
