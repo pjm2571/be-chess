@@ -18,11 +18,12 @@ public class ChessGame {
 
             if (sc.nextLine().equals(START_COMMAND)) {
                 Board board = new Board();
+                ChessView chessView = new ChessView(board);
 
                 board.initialize();
 
                 while (true) {
-                    System.out.println(board.showBoard());
+                    System.out.println(chessView.showBoard());
                     System.out.print("체스판 명령 입력 > ");
 
                     String[] commands = sc.nextLine().split(" ");
