@@ -1,5 +1,6 @@
 package chess.board;
 
+import chess.ChessView;
 import chess.pieces.Piece;
 import org.junit.jupiter.api.*;
 import utils.StringUtils;
@@ -23,10 +24,10 @@ public class BoardTest {
     @DisplayName("Board의 showBoard 정상 출력 테스트")
     public void showBoard_test() {
         board.initialize();
-
+        ChessView chessView = new ChessView(board);
         String blankRank = StringUtils.appendNewLine("........");
 
-        assertThat(board.showBoard()).isEqualTo(
+        assertThat(chessView.showBoard()).isEqualTo(
                 StringUtils.appendNewLine("RNBQKBNR") +
                         StringUtils.appendNewLine("PPPPPPPP") +
                         blankRank +
@@ -35,44 +36,47 @@ public class BoardTest {
                         blankRank +
                         StringUtils.appendNewLine("pppppppp") +
                         StringUtils.appendNewLine("rnbqkbnr"));
-        System.out.println(board.showBoard());
+        System.out.println(chessView.showBoard());
     }
 
     @Test
     @DisplayName("좌표를 입력받아 좌표에 해당하는 기물을 찾는 테스트")
     public void find_piece_at_board_test() {
         board.initialize();
+        ChessView chessView = new ChessView(board);
 
         assertThat(board.findPieceByPosition("a8")).isEqualTo(Piece.createPiece(Color.BLACK, Type.ROOK));
 
         assertThat(board.findPieceByPosition("h1")).isEqualTo(Piece.createPiece(Color.WHITE, Type.ROOK));
 
-        System.out.println(board.showBoard());
+        System.out.println(chessView.showBoard());
     }
 
     @Test
     @DisplayName("좌표를 입력받아 좌표에 해당하는 기물을 find 오류 테스트")
     public void find_piece_at_board_error_test() {
         board.initialize();
+        ChessView chessView = new ChessView(board);
 
         assertThat(board.findPieceByPosition("a8")).isNotEqualTo(Piece.createPiece(Color.NOCOLOR, Type.NO_PIECE));
 
         assertThat(board.findPieceByPosition("h1")).isNotEqualTo(Piece.createPiece(Color.NOCOLOR, Type.NO_PIECE));
 
-        System.out.println(board.showBoard());
+        System.out.println(chessView.showBoard());
     }
 
     @Test
     @DisplayName("빈 보드에서 A8 위치에 흰색 폰을 추가하는 테스트")
     public void create_emptyBoard_set_whitePawn_to_A8() {
         board.initializeEmpty();
+        ChessView chessView = new ChessView(board);
 
         String position = "a8";
         Piece whitePawn = Piece.createPiece(Color.WHITE, Type.PAWN);
         board.setPiece(position, whitePawn);
 
         assertThat(board.findPieceByPosition(position)).isEqualTo(whitePawn);
-        System.out.println(board.showBoard());
+        System.out.println(chessView.showBoard());
     }
 
     @Test
@@ -94,6 +98,7 @@ public class BoardTest {
     @DisplayName("폰이 세로로 있을 경우의 포인트 계산")
     public void calculate_point_pawn_within_column() {
         board.initializeEmpty();
+        ChessView chessView = new ChessView(board);
 
         //.KR.....  8
         //P.PB....  7
@@ -130,7 +135,7 @@ public class BoardTest {
         board.setPiece("f1", Piece.createPiece(Piece.Color.WHITE, Piece.Type.KING));
 
 
-        System.out.println(board.showBoard());
+        System.out.println(chessView.showBoard());
 
         assertThat(board.calculatePoint(Piece.Color.WHITE)).isEqualTo(19.5);
 
