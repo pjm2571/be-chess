@@ -69,7 +69,7 @@ public class BoardTest {
 
         String position = "a8";
         Piece whitePawn = Piece.createPiece(Color.WHITE, Type.PAWN);
-        board.move(position, whitePawn);
+        board.setPiece(position, whitePawn);
 
         assertThat(board.findPieceByPosition(position)).isEqualTo(whitePawn);
         System.out.println(board.showBoard());
@@ -105,29 +105,29 @@ public class BoardTest {
         //....rk.. 1
         //abcdefgh
 
-        board.move("b8", Piece.createPiece(Piece.Color.BLACK, Piece.Type.KING));
-        board.move("c8", Piece.createPiece(Piece.Color.BLACK, Piece.Type.ROOK));
+        board.setPiece("b8", Piece.createPiece(Piece.Color.BLACK, Piece.Type.KING));
+        board.setPiece("c8", Piece.createPiece(Piece.Color.BLACK, Piece.Type.ROOK));
 
-        board.move("a7", Piece.createPiece(Piece.Color.BLACK, Piece.Type.PAWN));
-        board.move("c7", Piece.createPiece(Piece.Color.BLACK, Piece.Type.PAWN));
-        board.move("d7", Piece.createPiece(Piece.Color.BLACK, Piece.Type.BISHOP));
+        board.setPiece("a7", Piece.createPiece(Piece.Color.BLACK, Piece.Type.PAWN));
+        board.setPiece("c7", Piece.createPiece(Piece.Color.BLACK, Piece.Type.PAWN));
+        board.setPiece("d7", Piece.createPiece(Piece.Color.BLACK, Piece.Type.BISHOP));
 
-        board.move("b6", Piece.createPiece(Piece.Color.BLACK, Piece.Type.PAWN));
-        board.move("e6", Piece.createPiece(Piece.Color.BLACK, Piece.Type.QUEEN));
+        board.setPiece("b6", Piece.createPiece(Piece.Color.BLACK, Piece.Type.PAWN));
+        board.setPiece("e6", Piece.createPiece(Piece.Color.BLACK, Piece.Type.QUEEN));
 
         assertThat(board.calculatePoint(Piece.Color.BLACK)).isEqualTo(20.0);
 
-        board.move("f4", Piece.createPiece(Piece.Color.WHITE, Piece.Type.KNIGHT));
-        board.move("g4", Piece.createPiece(Piece.Color.WHITE, Piece.Type.QUEEN));
+        board.setPiece("f4", Piece.createPiece(Piece.Color.WHITE, Piece.Type.KNIGHT));
+        board.setPiece("g4", Piece.createPiece(Piece.Color.WHITE, Piece.Type.QUEEN));
 
-        board.move("f3", Piece.createPiece(Piece.Color.WHITE, Piece.Type.PAWN));
-        board.move("h3", Piece.createPiece(Piece.Color.WHITE, Piece.Type.PAWN));
+        board.setPiece("f3", Piece.createPiece(Piece.Color.WHITE, Piece.Type.PAWN));
+        board.setPiece("h3", Piece.createPiece(Piece.Color.WHITE, Piece.Type.PAWN));
 
-        board.move("f2", Piece.createPiece(Piece.Color.WHITE, Piece.Type.PAWN));
-        board.move("g2", Piece.createPiece(Piece.Color.WHITE, Piece.Type.PAWN));
+        board.setPiece("f2", Piece.createPiece(Piece.Color.WHITE, Piece.Type.PAWN));
+        board.setPiece("g2", Piece.createPiece(Piece.Color.WHITE, Piece.Type.PAWN));
 
-        board.move("e1", Piece.createPiece(Piece.Color.WHITE, Piece.Type.ROOK));
-        board.move("f1", Piece.createPiece(Piece.Color.WHITE, Piece.Type.KING));
+        board.setPiece("e1", Piece.createPiece(Piece.Color.WHITE, Piece.Type.ROOK));
+        board.setPiece("f1", Piece.createPiece(Piece.Color.WHITE, Piece.Type.KING));
 
 
         System.out.println(board.showBoard());
@@ -143,7 +143,7 @@ public class BoardTest {
         board.initializeEmpty();
 
         for (int row = 8; row >= 1; row--) {
-            board.move("a" + row, Piece.createPiece(Piece.Color.WHITE, Piece.Type.PAWN));
+            board.setPiece("a" + row, Piece.createPiece(Piece.Color.WHITE, Piece.Type.PAWN));
         }
 
         assertThat(board.calculatePoint(Piece.Color.WHITE)).isEqualTo(expectedPoint);

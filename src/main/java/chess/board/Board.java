@@ -63,7 +63,7 @@ public class Board {
         return findPieceByPieceIndex(targetRank, piecePosition.getPieceIndex());
     }
 
-    public void move(String position, Piece piece) {
+    public void setPiece(String position, Piece piece) {
         Position piecePosition = new Position(position);
 
         Rank targetRank = findRankByPosition(piecePosition);
